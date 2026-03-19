@@ -4,6 +4,7 @@ import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
+import Principles from "@/components/Principles";
 import Architecture from "@/components/Architecture";
 import Contact from "@/components/Contact";
 import ChatBot from "@/components/ChatBot";
@@ -17,6 +18,7 @@ export default function Home() {
       <Skills />
       <Experience />
       <Projects />
+      <Principles />
       <Architecture />
       <Contact />
       <ChatBot />

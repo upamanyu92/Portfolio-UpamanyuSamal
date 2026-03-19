@@ -16,21 +16,22 @@ export default function ChatBot() {
     {
       id: 0,
       type: "bot",
-      text: "Hi! I'm Upamanyu's AI assistant. Ask me anything about his experience, skills, or projects!",
+      text: "Hi! I'm Upamanyu's RAG-powered career assistant. Ask me about his time-series experience, production AI systems, architectural decisions, or anything else about his background!",
     },
   ]);
   const [input, setInput] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
+  const nextId = useRef(1);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleQuestion = (question: string) => {
-    const userMsg: Message = { id: Date.now(), type: "user", text: question };
+    const userMsg: Message = { id: nextId.current++, type: "user", text: question };
     const qa = chatbotQA.find((q) => q.question === question);
     const botMsg: Message = {
-      id: Date.now() + 1,
+      id: nextId.current++,
       type: "bot",
       text:
         qa?.answer ??
@@ -43,12 +44,12 @@ export default function ChatBot() {
   const handleSend = () => {
     if (!input.trim()) return;
     const typed = input.trim();
-    const userMsg: Message = { id: Date.now(), type: "user", text: typed };
+    const userMsg: Message = { id: nextId.current++, type: "user", text: typed };
     const matched = chatbotQA.find((q) =>
       typed.toLowerCase().includes(q.question.toLowerCase().split(" ")[0])
     );
     const botMsg: Message = {
-      id: Date.now() + 1,
+      id: nextId.current++,
       type: "bot",
       text:
         matched?.answer ??
@@ -108,9 +109,9 @@ export default function ChatBot() {
                 <Bot className="w-5 h-5 text-white" />
               </div>
               <div>
-                <div className="font-semibold text-white text-sm">Upamanyu&apos;s Assistant</div>
+                <div className="font-semibold text-white text-sm">RAG Career Assistant</div>
                 <div className="text-emerald-400 text-xs flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> Online
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> Ask about experience, projects, or decisions
                 </div>
               </div>
             </div>
