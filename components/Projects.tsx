@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, GitBranch } from "lucide-react";
 import { projects } from "@/data/profile";
 import { Project } from "@/data/profile";
 import { Badge } from "@/components/ui/badge";
@@ -21,14 +21,14 @@ export default function Projects() {
           className="text-center mb-16"
         >
           <span className="text-cyan-400 text-sm font-semibold tracking-widest uppercase">Portfolio</span>
-          <h2 className="text-4xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+          <h2 className="font-editorial text-4xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
             Featured Projects
           </h2>
-          <p className="text-slate-400 mt-4">Click any project for detailed architecture breakdown</p>
+          <p className="text-slate-400 mt-4">Production-grade systems — click any card for architecture decisions</p>
         </motion.div>
 
-        {/* Project Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Bento Project Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -36,27 +36,27 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08 }}
-              className="glass-card group cursor-pointer hover:border-white/20 hover:-translate-y-1 transition-all duration-300"
+              className="bento-card group cursor-pointer"
               onClick={() => setSelected(project)}
             >
               {/* Gradient Bar */}
-              <div className={`h-1.5 rounded-t-xl bg-gradient-to-r ${project.gradient}`} />
+              <div className={`h-1 rounded-t-2xl bg-gradient-to-r ${project.gradient}`} />
 
               <div className="p-6">
                 {/* Category */}
-                <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">
+                <span className="text-xs text-slate-500 font-semibold uppercase tracking-widest">
                   {project.category}
                 </span>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-white mt-1 mb-2 group-hover:text-cyan-400 transition-colors">
+                <h3 className="text-base font-bold text-white mt-1.5 mb-2 group-hover:text-cyan-400 transition-colors leading-snug">
                   {project.title}
                 </h3>
 
-                <p className="text-slate-400 text-sm mb-4 line-clamp-2">{project.description}</p>
+                <p className="text-slate-400 text-sm mb-4 line-clamp-3 leading-relaxed">{project.description}</p>
 
                 {/* Architecture snippet */}
-                <div className="bg-slate-900/80 rounded-lg p-3 mb-4 font-mono text-xs text-slate-400">
+                <div className="bg-slate-900/80 rounded-lg p-3 mb-4 font-mono text-xs text-slate-400 leading-relaxed">
                   {project.architecture}
                 </div>
 
@@ -65,7 +65,7 @@ export default function Projects() {
                   {project.impact.slice(0, 2).map((imp) => (
                     <span
                       key={imp}
-                      className="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full"
+                      className="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full"
                     >
                       {imp}
                     </span>
@@ -88,7 +88,7 @@ export default function Projects() {
 
                 {/* View Details */}
                 <div className="flex items-center gap-1 mt-4 text-cyan-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  View Details <ChevronRight className="w-4 h-4" />
+                  Architecture & Decisions <ChevronRight className="w-4 h-4" />
                 </div>
               </div>
             </motion.div>
@@ -132,6 +132,24 @@ export default function Projects() {
                     </div>
                   </div>
 
+                  {/* Engineering Decisions / Trade-offs */}
+                  {selected.decisions && selected.decisions.length > 0 && (
+                    <div>
+                      <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wide mb-3 flex items-center gap-2">
+                        <GitBranch className="w-4 h-4 text-purple-400" />
+                        Engineering Decisions
+                      </h4>
+                      <div className="space-y-3">
+                        {selected.decisions.map((d, i) => (
+                          <div key={i} className="bg-slate-800/60 border border-slate-700/50 rounded-lg p-4">
+                            <div className="text-purple-300 text-sm font-semibold mb-1">⚡ {d.choice}</div>
+                            <div className="text-slate-400 text-sm leading-relaxed">{d.rationale}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div>
                     <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wide mb-3">
                       Technologies
@@ -153,3 +171,4 @@ export default function Projects() {
     </section>
   );
 }
+
