@@ -33,6 +33,17 @@ export interface Project {
   decisions: { choice: string; rationale: string }[];
 }
 
+export interface Award {
+  id: string;
+  title: string;
+  issuer: string;
+  year: string;
+  description: string;
+  icon: string;
+  gradient: string;
+  highlight: string;
+}
+
 export const profileData = {
   name: "Upamanyu Samal",
   title: "Strategic Builder · AI Systems · Cloud Architecture",
@@ -187,7 +198,7 @@ export const projects: Project[] = [
       "40M+ documents processed daily",
       "99.9% uptime SLA maintained",
       "60% latency reduction vs Lambda-batch",
-      "80% infrastructure cost reduction",
+      "96% reduction in production issues",
     ],
     category: "Cloud Architecture",
     gradient: "from-cyan-500 to-blue-600",
@@ -221,7 +232,7 @@ export const projects: Project[] = [
     impact: [
       "500M+ records migrated with zero data loss",
       "Zero downtime via dual-write cutover",
-      "2× query performance post-migration",
+      "67% improvement in operational cost efficiency",
       "40+ years of legal history preserved",
     ],
     category: "Data Engineering",
@@ -416,6 +427,42 @@ export const chatbotQA = [
     question: "Download resume",
     answer:
       "Sure! Click the button below to download my resume, or use the Download Resume button in the nav bar at the top.",
+  },
+];
+
+export const awards: Award[] = [
+  {
+    id: "hall-of-fame",
+    title: "Hall of Fame",
+    issuer: "Thomson Reuters",
+    year: "2023",
+    description:
+      "Awarded to top performers who consistently demonstrate exceptional technical leadership, innovation, and measurable impact across the organization. Recognized for architecting the Content Processing Platform that processes 40M+ documents daily at 99.9% SLA.",
+    icon: "🏆",
+    gradient: "from-yellow-400 to-orange-500",
+    highlight: "Top 1% performer",
+  },
+  {
+    id: "innovate-ignite",
+    title: "Innovate Ignite — TestSense",
+    issuer: "Thomson Reuters",
+    year: "2022",
+    description:
+      "Awarded for the TestSense innovation project that leveraged AI-driven test generation to dramatically reduce manual QA effort and production defect rates. The solution was recognized for its transformative approach to engineering quality at scale.",
+    icon: "⚡",
+    gradient: "from-cyan-400 to-blue-500",
+    highlight: "96% issue reduction",
+  },
+  {
+    id: "shine-award",
+    title: "Shine Award",
+    issuer: "Thomson Reuters",
+    year: "2021",
+    description:
+      "Recognized for outstanding cross-functional collaboration and delivery excellence during the Athens Data Migration — a zero-downtime migration of 40+ years of legacy legal content to AWS cloud infrastructure, completed ahead of schedule.",
+    icon: "✨",
+    gradient: "from-purple-400 to-pink-500",
+    highlight: "Delivered ahead of schedule",
   },
 ];
 
