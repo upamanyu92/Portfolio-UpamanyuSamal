@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 
@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   title: "Upamanyu Samal | Strategic Builder · AI Systems · Cloud Architecture",
   description:
     "Portfolio of Upamanyu Samal – Strategic Builder with 9+ years designing and shipping production AI pipelines, cloud-native distributed systems, and agentic architectures at Thomson Reuters.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0f172a",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

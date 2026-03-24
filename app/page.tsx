@@ -7,7 +7,7 @@ import Projects from "@/components/Projects";
 import Principles from "@/components/Principles";
 import Architecture from "@/components/Architecture";
 import Contact from "@/components/Contact";
-import ChatBot from "@/components/ChatBot";
+import ChatBotLoader from "@/components/ChatBotLoader";
 
 export default function Home() {
   return (
@@ -21,7 +21,7 @@ export default function Home() {
       <Principles />
       <Architecture />
       <Contact />
-      <ChatBot />
+      <ChatBotLoader />
     </main>
   );
 }
