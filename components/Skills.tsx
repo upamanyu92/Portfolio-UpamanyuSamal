@@ -53,21 +53,14 @@ export default function Skills() {
                 {category.title}
               </h3>
               <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
+                {category.skills.map((skill) => (
+                  <Badge
                     key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: catIndex * 0.05 + skillIndex * 0.03 }}
+                    variant="outline"
+                    className={`${colorMap[category.color]} border transition-colors cursor-default text-xs py-1`}
                   >
-                    <Badge
-                      variant="outline"
-                      className={`${colorMap[category.color]} border transition-colors cursor-default text-xs py-1`}
-                    >
-                      {skill}
-                    </Badge>
-                  </motion.div>
+                    {skill}
+                  </Badge>
                 ))}
               </div>
             </motion.div>
