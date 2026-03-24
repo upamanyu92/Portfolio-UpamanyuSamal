@@ -15,9 +15,9 @@ export default function Experience() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-cyan-400 text-sm font-semibold tracking-widest uppercase">Career Journey</span>
+          <span className="text-cyan-400 text-sm font-semibold tracking-widest uppercase">Architecture Roadmap</span>
           <h2 className="text-4xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-            Professional Experience
+            Career Timeline · 2015 – Present
           </h2>
         </motion.div>
 
