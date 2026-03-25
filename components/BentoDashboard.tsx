@@ -133,7 +133,7 @@ const awardIconMap: Record<string, React.ElementType> = {
 
 function IdentityPanel() {
   return (
-    <aside className="hidden lg:flex shrink-0 w-72 border-r border-white/5 flex-col gap-3 p-3 overflow-y-auto">
+    <aside className="hidden lg:flex shrink-0 w-72 border-r border-white/5 flex-col gap-4 p-4 overflow-y-auto">
       {/* Identity card */}
       <div className="bento-card p-5 flex flex-col gap-4 relative overflow-hidden">
         {/* Subtle glow behind avatar */}
@@ -730,7 +730,7 @@ export default function BentoDashboard() {
         <IdentityPanel />
 
         {/* Right panel — dynamic tab content */}
-        <main className="flex-1 overflow-y-auto p-3 lg:p-4">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
