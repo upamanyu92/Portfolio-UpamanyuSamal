@@ -133,9 +133,9 @@ const awardIconMap: Record<string, React.ElementType> = {
 
 function IdentityPanel() {
   return (
-    <aside className="hidden lg:flex shrink-0 w-72 border-r border-white/5 flex-col gap-4 p-4 overflow-y-auto">
+    <aside className="hidden lg:flex shrink-0 w-80 border-r border-white/5 flex-col gap-5 p-5 overflow-y-auto">
       {/* Identity card */}
-      <div className="bento-card p-5 flex flex-col gap-4 relative overflow-hidden">
+      <div className="bento-card p-6 flex flex-col gap-4 relative overflow-hidden">
         {/* Subtle glow behind avatar */}
         <div className="absolute -top-4 -left-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-xl pointer-events-none" />
         <div className="relative">
@@ -146,57 +146,57 @@ function IdentityPanel() {
         </div>
 
         <div>
-          <h1 className="font-editorial text-xl font-bold text-white leading-tight">
+          <h1 className="font-editorial text-2xl font-bold text-white leading-tight">
             Upamanyu Samal
           </h1>
-          <p className="text-cyan-400 text-sm font-medium mt-0.5">
+          <p className="text-cyan-400 text-sm font-medium mt-1">
             Software Architect &amp; Technical Lead
           </p>
         </div>
 
-        <p className="text-slate-400 text-xs leading-relaxed">
+        <p className="text-slate-400 text-sm leading-relaxed">
           9+ years shipping production AI pipelines, cloud-native distributed systems, and
           agentic architectures at Thomson Reuters.
         </p>
 
-        <div className="space-y-1.5 text-xs text-slate-400">
-          <div className="flex items-center gap-1.5">
-            <MapPin className="w-3 h-3 shrink-0 text-slate-500" /> Hyderabad, India
+        <div className="space-y-2 text-sm text-slate-400">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-3.5 h-3.5 shrink-0 text-slate-500" /> Hyderabad, India
           </div>
-          <div className="flex items-center gap-1.5">
-            <Building2 className="w-3 h-3 shrink-0 text-slate-500" />
+          <div className="flex items-center gap-2">
+            <Building2 className="w-3.5 h-3.5 shrink-0 text-slate-500" />
             <span className="text-cyan-400 font-medium">Thomson Reuters</span>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-3 pt-1">
+        <div className="flex flex-wrap gap-4 pt-1">
           <a
             href={`mailto:${profileData.email}`}
-            className="flex items-center gap-1 text-xs text-slate-300 hover:text-cyan-400 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-cyan-400 transition-colors"
           >
-            <Mail className="w-3 h-3 text-cyan-500/70" /> Email
+            <Mail className="w-3.5 h-3.5 text-cyan-500/70" /> Email
           </a>
           <a
             href={profileData.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-slate-300 hover:text-blue-400 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-blue-400 transition-colors"
           >
-            <ExternalLink className="w-3 h-3 text-blue-500/70" /> LinkedIn
+            <ExternalLink className="w-3.5 h-3.5 text-blue-500/70" /> LinkedIn
           </a>
           <a
             href={profileData.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-slate-300 hover:text-purple-400 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-purple-400 transition-colors"
           >
-            <ExternalLink className="w-3 h-3 text-purple-500/70" /> GitHub
+            <ExternalLink className="w-3.5 h-3.5 text-purple-500/70" /> GitHub
           </a>
         </div>
       </div>
 
       {/* Core Stack */}
-      <div className="bento-card p-4">
+      <div className="bento-card p-5">
         <p className="text-slate-500 text-[10px] font-semibold tracking-widest uppercase mb-3">
           Core Stack
         </p>
@@ -204,7 +204,7 @@ function IdentityPanel() {
           {coreStack.map((tech) => (
             <span
               key={tech}
-              className="text-[11px] bg-slate-800/80 border border-slate-700 hover:border-cyan-500/40 hover:text-cyan-400 text-slate-300 px-2 py-0.5 rounded-md transition-colors cursor-default"
+              className="text-xs bg-slate-800/80 border border-slate-700 hover:border-cyan-500/40 hover:text-cyan-400 text-slate-300 px-2.5 py-1 rounded-md transition-colors cursor-default"
             >
               {tech}
             </span>
@@ -213,17 +213,17 @@ function IdentityPanel() {
       </div>
 
       {/* Impact metrics */}
-      <div className="bento-card p-4">
+      <div className="bento-card p-5">
         <p className="text-slate-500 text-[10px] font-semibold tracking-widest uppercase mb-3">
           Impact Metrics
         </p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-4">
           {impactMetrics.map((m) => (
             <div key={m.label} className="group">
-              <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-400 to-purple-400">
+              <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-400 to-purple-400">
                 {m.value}
               </div>
-              <div className="text-slate-500 text-[10px] mt-0.5">{m.label}</div>
+              <div className="text-slate-500 text-xs mt-0.5">{m.label}</div>
             </div>
           ))}
         </div>
@@ -233,9 +233,9 @@ function IdentityPanel() {
       <a
         href="/assets/resume.pdf"
         download
-        className="flex items-center justify-center gap-2 text-xs font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300 border border-cyan-500/30 hover:border-cyan-500/60 rounded-xl py-2.5 transition-all"
+        className="flex items-center justify-center gap-2 text-sm font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300 border border-cyan-500/30 hover:border-cyan-500/60 rounded-xl py-3 transition-all"
       >
-        <Download className="w-3.5 h-3.5" /> Download Resume
+        <Download className="w-4 h-4" /> Download Resume
       </a>
     </aside>
   );
@@ -286,11 +286,11 @@ function OverviewPanel() {
   const featuredProject = projects[0];
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-5">
       <MobileIdentityBanner />
 
       {/* Featured Architecture */}
-      <div className="bento-card p-5 relative overflow-hidden">
+      <div className="bento-card p-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
         <p className="text-slate-500 text-[10px] font-semibold tracking-widest uppercase mb-3">
           Featured Architecture
@@ -311,15 +311,15 @@ function OverviewPanel() {
       </div>
 
       {/* Metrics + Awards */}
-      <div className="grid sm:grid-cols-2 gap-3">
+      <div className="grid md:grid-cols-2 gap-5">
         {/* Key metrics */}
-        <div className="bento-card p-4">
+        <div className="bento-card p-5">
           <p className="text-slate-500 text-[10px] font-semibold tracking-widest uppercase mb-3">
             Key Metrics
           </p>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {featuredProject.impact.slice(0, 4).map((imp) => (
-              <div key={imp} className="flex items-start gap-2 text-xs group">
+              <div key={imp} className="flex items-start gap-2 text-sm group">
                 <span className="text-emerald-400 mt-0.5 shrink-0">▸</span>
                 <span className="text-slate-300 group-hover:text-white transition-colors">{imp}</span>
               </div>
@@ -328,23 +328,23 @@ function OverviewPanel() {
         </div>
 
         {/* Awards */}
-        <div className="bento-card p-4">
+        <div className="bento-card p-5">
           <p className="text-slate-500 text-[10px] font-semibold tracking-widest uppercase mb-3">
             Awards
           </p>
-          <div className="space-y-2.5">
+          <div className="space-y-3">
             {awards.map((award) => {
               const Icon = awardIconMap[award.icon] ?? Trophy;
               return (
-                <div key={award.id} className="flex items-center gap-2.5 group">
+                <div key={award.id} className="flex items-center gap-3 group">
                   <div
-                    className={`w-7 h-7 rounded-lg bg-gradient-to-br ${award.gradient} flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform`}
+                    className={`w-8 h-8 rounded-lg bg-gradient-to-br ${award.gradient} flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform`}
                   >
-                    <Icon className="w-3.5 h-3.5 text-white" />
+                    <Icon className="w-4 h-4 text-white" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-slate-300 text-xs font-medium truncate group-hover:text-white transition-colors">{award.title}</div>
-                    <div className="text-slate-500 text-[10px]">{award.year}</div>
+                    <div className="text-slate-300 text-sm font-medium truncate group-hover:text-white transition-colors">{award.title}</div>
+                    <div className="text-slate-500 text-xs">{award.year}</div>
                   </div>
                 </div>
               );
@@ -362,7 +362,7 @@ function ExperiencePanel() {
       {/* Vertical timeline line */}
       <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/60 via-purple-500/30 to-transparent" />
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         {experiences.map((exp) => (
           <div key={exp.id} className="relative pl-11">
             {/* Timeline dot */}
@@ -374,43 +374,43 @@ function ExperiencePanel() {
               <div className="absolute left-3.5 top-5 w-3 h-3 rounded-full border-2 bg-slate-800 border-slate-600 -translate-x-1/2" />
             )}
 
-            <div className={`bento-card p-5 ${exp.current ? "border-cyan-500/20" : ""}`}>
-              <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+            <div className={`bento-card p-6 ${exp.current ? "border-cyan-500/20" : ""}`}>
+              <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-white font-bold text-sm">{exp.role}</h3>
+                    <h3 className="text-white font-bold text-base">{exp.role}</h3>
                     {exp.current && (
-                      <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 text-[10px] font-medium">
+                      <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 text-xs font-medium">
                         Current
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-1 text-cyan-400 text-xs font-medium mt-0.5">
-                    <Briefcase className="w-3 h-3" /> {exp.company}
+                  <div className="flex items-center gap-1.5 text-cyan-400 text-sm font-medium mt-0.5">
+                    <Briefcase className="w-3.5 h-3.5" /> {exp.company}
                   </div>
                 </div>
-                <div className="flex flex-col items-end gap-0.5 text-slate-400 text-xs">
+                <div className="flex flex-col items-end gap-0.5 text-slate-400 text-sm">
                   <span className="flex items-center gap-1">
-                    <Calendar className="w-3 h-3" /> {exp.period}
+                    <Calendar className="w-3.5 h-3.5" /> {exp.period}
                   </span>
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-3 h-3" /> {exp.location}
+                    <MapPin className="w-3.5 h-3.5" /> {exp.location}
                   </span>
                 </div>
               </div>
 
-              <ul className="space-y-1 mb-3">
+              <ul className="space-y-2 mb-4">
                 {exp.description.slice(0, 3).map((pt, i) => (
-                  <li key={i} className="text-slate-300 text-xs flex gap-1.5">
+                  <li key={i} className="text-slate-300 text-sm flex gap-2">
                     <span className="text-cyan-500 mt-0.5 shrink-0">▸</span>
                     {pt}
                   </li>
                 ))}
               </ul>
 
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1.5">
                 {exp.technologies.slice(0, 5).map((t) => (
-                  <Badge key={t} variant="outline" className="text-[10px] border-slate-700 text-slate-500 py-0 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors">
+                  <Badge key={t} variant="outline" className="text-xs border-slate-700 text-slate-500 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors">
                     {t}
                   </Badge>
                 ))}
@@ -425,21 +425,21 @@ function ExperiencePanel() {
 
 function SkillsPanel() {
   return (
-    <div className="grid sm:grid-cols-2 gap-4">
+    <div className="grid md:grid-cols-2 gap-5">
       {skillCategories.map((cat) => (
-        <div key={cat.title} className="bento-card p-5 group relative overflow-hidden">
+        <div key={cat.title} className="bento-card p-6 group relative overflow-hidden">
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shimmer" />
           <h3
-            className={`text-sm font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r ${headerColorMap[cat.color]}`}
+            className={`text-base font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r ${headerColorMap[cat.color]}`}
           >
             {cat.title}
           </h3>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {cat.skills.map((sk) => (
               <Badge
                 key={sk}
                 variant="outline"
-                className={`${badgeColorMap[cat.color]} border text-xs py-0.5 cursor-default hover:scale-105 transition-transform`}
+                className={`${badgeColorMap[cat.color]} border text-sm py-1 cursor-default hover:scale-105 transition-transform`}
               >
                 {sk}
               </Badge>
@@ -456,7 +456,7 @@ function ProjectsPanel() {
 
   return (
     <>
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
         {projects.map((proj) => (
           <div
             key={proj.id}
@@ -465,31 +465,31 @@ function ProjectsPanel() {
           >
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shimmer" />
             <div className={`h-1.5 bg-gradient-to-r ${proj.gradient} group-hover:h-2 transition-all duration-300`} />
-            <div className="p-5">
-              <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-widest">
+            <div className="p-6">
+              <span className="text-xs text-slate-500 font-semibold uppercase tracking-widest">
                 {proj.category}
               </span>
-              <h3 className="text-sm font-bold text-white mt-1 mb-2 group-hover:text-cyan-400 transition-colors leading-snug">
+              <h3 className="text-base font-bold text-white mt-1.5 mb-2 group-hover:text-cyan-400 transition-colors leading-snug">
                 {proj.title}
               </h3>
-              <p className="text-slate-400 text-xs mb-3 line-clamp-2 leading-relaxed">
+              <p className="text-slate-400 text-sm mb-3 line-clamp-2 leading-relaxed">
                 {proj.description}
               </p>
-              <div className="bg-slate-900/80 border border-slate-800 rounded p-2 font-mono text-[10px] text-slate-400 mb-3">
+              <div className="bg-slate-900/80 border border-slate-800 rounded p-2.5 font-mono text-xs text-slate-400 mb-3">
                 {proj.architecture}
               </div>
-              <div className="flex flex-wrap gap-1 mb-3">
+              <div className="flex flex-wrap gap-1.5 mb-3">
                 {proj.impact.slice(0, 2).map((imp) => (
                   <span
                     key={imp}
-                    className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded-full"
+                    className="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full"
                   >
                     {imp}
                   </span>
                 ))}
               </div>
-              <div className="flex items-center gap-1 text-cyan-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-all">
-                View details <ChevronRight className="w-3 h-3" />
+              <div className="flex items-center gap-1 text-cyan-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-all">
+                View details <ChevronRight className="w-4 h-4" />
               </div>
             </div>
           </div>
@@ -581,7 +581,7 @@ function ArchitecturePanel() {
   const diagram = diagrams.find((d) => d.id === active)!;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {/* Diagram selector */}
       <div className="flex flex-wrap gap-2">
         {diagrams.map((d) => (
@@ -606,7 +606,7 @@ function ArchitecturePanel() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.18 }}
-          className="bento-card p-6"
+          className="bento-card p-7"
         >
           <h3 className="text-base font-bold text-white mb-1">{diagram.title}</h3>
           <p className="text-slate-400 text-xs mb-6">{diagram.description}</p>
@@ -730,7 +730,7 @@ export default function BentoDashboard() {
         <IdentityPanel />
 
         {/* Right panel — dynamic tab content */}
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -738,6 +738,7 @@ export default function BentoDashboard() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.18 }}
+              className="max-w-5xl mx-auto"
             >
               {activeTab === "home" && <OverviewPanel />}
               {activeTab === "experience" && <ExperiencePanel />}
