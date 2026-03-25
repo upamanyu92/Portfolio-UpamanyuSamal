@@ -96,8 +96,8 @@ export default function Architecture() {
               onClick={() => setActive(d.id)}
               className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
                 active === d.id
-                  ? "bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30"
-                  : "bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700"
+                  ? "bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30 scale-105"
+                  : "bg-slate-800 border border-slate-700 text-slate-400 hover:text-white hover:bg-slate-700 hover:border-slate-600"
               }`}
             >
               {d.title}

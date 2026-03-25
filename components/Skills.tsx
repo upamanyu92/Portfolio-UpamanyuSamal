@@ -45,8 +45,9 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: catIndex * 0.1 }}
-              className="glass-card p-6 hover:border-white/20 transition-all"
+              className="glass-card p-6 hover:border-white/20 transition-all group relative overflow-hidden"
             >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shimmer" />
               <h3
                 className={`text-lg font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r ${headerColorMap[category.color]}`}
               >
@@ -57,7 +58,7 @@ export default function Skills() {
                   <Badge
                     key={skill}
                     variant="outline"
-                    className={`${colorMap[category.color]} border transition-colors cursor-default text-xs py-1`}
+                    className={`${colorMap[category.color]} border transition-all cursor-default text-xs py-1 hover:scale-105`}
                   >
                     {skill}
                   </Badge>

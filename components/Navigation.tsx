@@ -18,11 +18,30 @@ const navLinks = [
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll-spy: detect which section is in view
+  useEffect(() => {
+    const sectionIds = navLinks.map((l) => l.href.slice(1));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   const scrollTo = (href: string) => {
@@ -34,7 +53,7 @@ export default function Navigation() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-slate-950/80 backdrop-blur-md border-b border-white/10 shadow-lg" : "bg-transparent"
+        scrolled ? "bg-slate-950/85 backdrop-blur-md border-b border-white/10 shadow-xl shadow-black/20" : "bg-transparent"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -44,7 +63,7 @@ export default function Navigation() {
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center gap-2"
         >
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-white text-sm">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-white text-sm shadow-lg shadow-cyan-500/20">
             US
           </div>
           <span className="font-semibold text-white hidden sm:block">Upamanyu Samal</span>
@@ -57,16 +76,29 @@ export default function Navigation() {
           transition={{ delay: 0.1 }}
           className="hidden lg:flex items-center gap-1"
         >
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <button
-                onClick={() => scrollTo(link.href)}
-                className="px-3 py-1.5 text-sm text-slate-300 hover:text-cyan-400 transition-colors rounded-md hover:bg-white/5"
-              >
-                {link.label}
-              </button>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.slice(1);
+            return (
+              <li key={link.href}>
+                <button
+                  onClick={() => scrollTo(link.href)}
+                  className={`relative px-3 py-1.5 text-sm transition-colors rounded-md ${
+                    isActive
+                      ? "text-cyan-400"
+                      : "text-slate-300 hover:text-cyan-400 hover:bg-white/5"
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-indicator"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400"
+                    />
+                  )}
+                </button>
+              </li>
+            );
+          })}
         </motion.ul>
 
         {/* Resume Button */}
@@ -77,7 +109,7 @@ export default function Navigation() {
         >
           <Button
             size="sm"
-            className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-1.5"
+            className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-1.5 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/30 transition-shadow"
             asChild
           >
             <a href="/assets/resume.pdf" download>
@@ -107,15 +139,22 @@ export default function Navigation() {
             className="lg:hidden bg-slate-950/95 backdrop-blur-md border-b border-white/10"
           >
             <div className="px-4 py-4 flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => scrollTo(link.href)}
-                  className="text-left px-3 py-2 text-slate-300 hover:text-cyan-400 hover:bg-white/5 rounded-md transition-colors"
-                >
-                  {link.label}
-                </button>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.slice(1);
+                return (
+                  <button
+                    key={link.href}
+                    onClick={() => scrollTo(link.href)}
+                    className={`text-left px-3 py-2 rounded-md transition-colors ${
+                      isActive
+                        ? "text-cyan-400 bg-cyan-500/10 border-l-2 border-cyan-400"
+                        : "text-slate-300 hover:text-cyan-400 hover:bg-white/5"
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                );
+              })}
               <a
                 href="/assets/resume.pdf"
                 download

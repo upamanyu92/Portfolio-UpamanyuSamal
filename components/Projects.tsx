@@ -36,11 +36,13 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08 }}
-              className="bento-card group cursor-pointer"
+              className="bento-card group cursor-pointer relative overflow-hidden"
               onClick={() => setSelected(project)}
             >
+              {/* Shimmer on hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shimmer" />
               {/* Gradient Bar */}
-              <div className={`h-1 rounded-t-2xl bg-gradient-to-r ${project.gradient}`} />
+              <div className={`h-1.5 bg-gradient-to-r ${project.gradient} group-hover:h-2 transition-all duration-300`} />
 
               <div className="p-6">
                 {/* Category */}
@@ -87,8 +89,8 @@ export default function Projects() {
                 </div>
 
                 {/* View Details */}
-                <div className="flex items-center gap-1 mt-4 text-cyan-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  Architecture & Decisions <ChevronRight className="w-4 h-4" />
+                <div className="flex items-center gap-1 mt-4 text-cyan-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-all translate-x-0 group-hover:translate-x-0.5">
+                  Architecture &amp; Decisions <ChevronRight className="w-4 h-4" />
                 </div>
               </div>
             </motion.div>

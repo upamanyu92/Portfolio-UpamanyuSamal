@@ -28,25 +28,37 @@ const pipelineSteps = [
 
 // CSS-only abstract code visual – no stock images
 function AbstractCodeVisual() {
-  const lines = [
-    { w: "w-3/4", color: "bg-cyan-500/40" },
-    { w: "w-1/2", color: "bg-purple-500/30" },
-    { w: "w-5/6", color: "bg-cyan-400/20" },
-    { w: "w-2/3", color: "bg-emerald-500/30" },
-    { w: "w-4/5", color: "bg-purple-400/20" },
-    { w: "w-1/3", color: "bg-cyan-500/40" },
-    { w: "w-3/5", color: "bg-slate-500/30" },
-    { w: "w-2/5", color: "bg-emerald-400/20" },
+  const tokens = [
+    { indent: 0, parts: [{ t: "def ", c: "text-purple-400" }, { t: "process_pipeline", c: "text-cyan-300" }, { t: "(docs):", c: "text-slate-300" }] },
+    { indent: 1, parts: [{ t: "embeddings ", c: "text-slate-300" }, { t: "= ", c: "text-purple-400" }, { t: "model", c: "text-cyan-400" }, { t: ".encode(docs)", c: "text-slate-300" }] },
+    { indent: 1, parts: [{ t: "results ", c: "text-slate-300" }, { t: "= ", c: "text-purple-400" }, { t: "vectordb", c: "text-cyan-400" }, { t: ".search(", c: "text-slate-300" }] },
+    { indent: 2, parts: [{ t: "embeddings,", c: "text-orange-300" }, { t: " top_k", c: "text-slate-300" }, { t: "=", c: "text-purple-400" }, { t: "10", c: "text-emerald-400" }] },
+    { indent: 1, parts: [{ t: ")", c: "text-slate-300" }] },
+    { indent: 1, parts: [{ t: "return ", c: "text-purple-400" }, { t: "llm", c: "text-cyan-400" }, { t: ".generate(results)", c: "text-slate-300" }] },
   ];
   return (
-    <div className="space-y-2 p-4 font-mono text-xs">
-      <div className="text-cyan-400/70 mb-3 text-[10px] tracking-widest uppercase">pipeline.py</div>
-      {lines.map((l, i) => (
-        <div key={i} className="flex items-center gap-2">
-          <span className="text-slate-600 w-4 shrink-0">{i + 1}</span>
-          <div className={`h-1.5 rounded-full ${l.w} ${l.color}`} />
-        </div>
-      ))}
+    <div className="p-4 font-mono text-[11px] h-full flex flex-col justify-between">
+      <div className="text-cyan-400/60 text-[10px] tracking-widest uppercase mb-3 flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-red-500/70" />
+        <span className="w-2 h-2 rounded-full bg-yellow-500/70" />
+        <span className="w-2 h-2 rounded-full bg-emerald-500/70" />
+        <span className="ml-1">pipeline.py</span>
+      </div>
+      <div className="space-y-1.5 flex-1">
+        {tokens.map((line, i) => (
+          <div key={i} className="flex items-center gap-1.5">
+            <span className="text-slate-600 w-4 shrink-0 text-right">{i + 1}</span>
+            <span style={{ paddingLeft: `${line.indent * 12}px` }} className="flex flex-wrap gap-0">
+              {line.parts.map((p, j) => (
+                <span key={j} className={p.c}>{p.t}</span>
+              ))}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 pt-3 border-t border-slate-800 flex items-center gap-2 text-[10px] text-slate-500">
+        <span className="text-emerald-400">✓</span> No errors · Python 3.11
+      </div>
     </div>
   );
 }
@@ -96,19 +108,25 @@ export default function Hero() {
     >
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-cyan-500/8 rounded-full blur-3xl motion-safe:animate-pulse" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl motion-safe:animate-pulse" />
         <div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/8 rounded-full blur-3xl motion-safe:animate-pulse"
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl motion-safe:animate-pulse"
           style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute top-3/4 left-1/2 w-64 h-64 bg-emerald-500/6 rounded-full blur-3xl motion-safe:animate-pulse"
+          style={{ animationDelay: "2s" }}
         />
         {/* Grid overlay */}
         <div
-          className="absolute inset-0 opacity-[0.06]"
+          className="absolute inset-0 opacity-[0.04]"
           style={{
-            backgroundImage: `linear-gradient(rgba(6,182,212,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.5) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(6,182,212,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.8) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
           }}
         />
+        {/* Radial vignette */}
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(15,23,42,0.8) 100%)" }} />
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4">
@@ -119,8 +137,8 @@ export default function Hero() {
           transition={{ delay: 0.05 }}
           className="flex justify-center mb-8"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm">
-            <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/40 text-cyan-400 text-sm shadow-lg shadow-cyan-500/10">
+            <span className="w-2 h-2 bg-cyan-400 rounded-full neon-dot" />
             Open to Senior / Staff Engineering Roles
           </span>
         </motion.div>
@@ -189,7 +207,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="md:col-span-4 bento-card overflow-hidden"
+            className="md:col-span-4 bento-card overflow-hidden min-h-[200px]"
           >
             <AbstractCodeVisual />
           </motion.div>
@@ -201,9 +219,10 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + i * 0.06 }}
-              className="md:col-span-3 bento-card p-5 flex flex-col justify-between"
+              className="md:col-span-3 bento-card p-5 flex flex-col justify-between group overflow-hidden relative"
             >
-              <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-400">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shimmer" />
+              <div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-400 to-purple-400">
                 {stat.value}
               </div>
               <div>
@@ -218,8 +237,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.48 }}
-            className="md:col-span-12 bento-card p-5"
+            className="md:col-span-12 bento-card p-5 relative overflow-hidden"
           >
+            <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(6,182,212,0.05) 0%, transparent 50%, rgba(168,85,247,0.05) 100%)" }} />
             <p className="text-slate-500 text-xs font-semibold tracking-widest uppercase mb-4">
               End-to-End Pipeline Ownership
             </p>
@@ -228,7 +248,7 @@ export default function Hero() {
                 const Icon = step.icon;
                 return (
                   <div key={step.label} className="flex items-center gap-2">
-                    <div className="flex items-center gap-2 bg-slate-800/80 rounded-lg px-3 py-2">
+                    <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-700/50 rounded-lg px-3 py-2 hover:border-cyan-500/40 transition-colors">
                       <Icon className="w-4 h-4 text-cyan-400" />
                       <div>
                         <div className="text-white text-xs font-semibold">{step.label}</div>
@@ -236,15 +256,15 @@ export default function Hero() {
                       </div>
                     </div>
                     {i < pipelineSteps.length - 1 && (
-                      <span className="text-slate-600 text-lg">→</span>
+                      <span className="text-cyan-600/60 text-lg">→</span>
                     )}
                   </div>
                 );
               })}
               <div className="flex items-center gap-2 ml-2">
-                <span className="text-slate-600 text-lg">→</span>
-                <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-3 py-2">
-                  <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="text-cyan-600/60 text-lg">→</span>
+                <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/40 rounded-lg px-3 py-2">
+                  <span className="w-2 h-2 bg-emerald-400 rounded-full neon-dot" />
                   <div>
                     <div className="text-emerald-400 text-xs font-semibold">Monitor</div>
                     <div className="text-slate-500 text-[10px]">Prometheus / Grafana</div>
@@ -261,10 +281,11 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.0 }}
-          className="flex justify-center mt-10 text-slate-500 animate-bounce cursor-pointer"
+          className="flex flex-col items-center mt-10 text-slate-500 cursor-pointer group"
           onClick={() => scrollTo("#about")}
         >
-          <ArrowDown className="w-6 h-6" />
+          <span className="text-xs tracking-widest uppercase mb-2 group-hover:text-cyan-400 transition-colors">Scroll</span>
+          <ArrowDown className="w-5 h-5 animate-bounce group-hover:text-cyan-400 transition-colors" />
         </motion.div>
       </div>
     </section>
