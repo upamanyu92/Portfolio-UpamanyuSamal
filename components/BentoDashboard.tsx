@@ -135,9 +135,14 @@ function IdentityPanel() {
   return (
     <aside className="hidden lg:flex shrink-0 w-72 border-r border-white/5 flex-col gap-3 p-3 overflow-y-auto">
       {/* Identity card */}
-      <div className="bento-card p-5 flex flex-col gap-4">
-        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-white text-2xl select-none">
-          US
+      <div className="bento-card p-5 flex flex-col gap-4 relative overflow-hidden">
+        {/* Subtle glow behind avatar */}
+        <div className="absolute -top-4 -left-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-xl pointer-events-none" />
+        <div className="relative">
+          <div className="absolute inset-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-purple-500 blur-md opacity-40" />
+          <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-white text-2xl select-none shadow-lg">
+            US
+          </div>
         </div>
 
         <div>
@@ -145,7 +150,7 @@ function IdentityPanel() {
             Upamanyu Samal
           </h1>
           <p className="text-cyan-400 text-sm font-medium mt-0.5">
-            Software Architect & Technical Lead
+            Software Architect &amp; Technical Lead
           </p>
         </div>
 
@@ -156,10 +161,10 @@ function IdentityPanel() {
 
         <div className="space-y-1.5 text-xs text-slate-400">
           <div className="flex items-center gap-1.5">
-            <MapPin className="w-3 h-3 shrink-0" /> Hyderabad, India
+            <MapPin className="w-3 h-3 shrink-0 text-slate-500" /> Hyderabad, India
           </div>
           <div className="flex items-center gap-1.5">
-            <Building2 className="w-3 h-3 shrink-0" />
+            <Building2 className="w-3 h-3 shrink-0 text-slate-500" />
             <span className="text-cyan-400 font-medium">Thomson Reuters</span>
           </div>
         </div>
@@ -169,23 +174,23 @@ function IdentityPanel() {
             href={`mailto:${profileData.email}`}
             className="flex items-center gap-1 text-xs text-slate-300 hover:text-cyan-400 transition-colors"
           >
-            <Mail className="w-3 h-3" /> Email
+            <Mail className="w-3 h-3 text-cyan-500/70" /> Email
           </a>
           <a
             href={profileData.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-slate-300 hover:text-purple-400 transition-colors"
+            className="flex items-center gap-1 text-xs text-slate-300 hover:text-blue-400 transition-colors"
           >
-            <ExternalLink className="w-3 h-3" /> LinkedIn
+            <ExternalLink className="w-3 h-3 text-blue-500/70" /> LinkedIn
           </a>
           <a
             href={profileData.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-slate-300 hover:text-white transition-colors"
+            className="flex items-center gap-1 text-xs text-slate-300 hover:text-purple-400 transition-colors"
           >
-            <ExternalLink className="w-3 h-3" /> GitHub
+            <ExternalLink className="w-3 h-3 text-purple-500/70" /> GitHub
           </a>
         </div>
       </div>
@@ -199,7 +204,7 @@ function IdentityPanel() {
           {coreStack.map((tech) => (
             <span
               key={tech}
-              className="text-[11px] bg-slate-800/80 border border-slate-700 text-slate-300 px-2 py-0.5 rounded-md"
+              className="text-[11px] bg-slate-800/80 border border-slate-700 hover:border-cyan-500/40 hover:text-cyan-400 text-slate-300 px-2 py-0.5 rounded-md transition-colors cursor-default"
             >
               {tech}
             </span>
@@ -214,8 +219,8 @@ function IdentityPanel() {
         </p>
         <div className="grid grid-cols-2 gap-3">
           {impactMetrics.map((m) => (
-            <div key={m.label}>
-              <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-400">
+            <div key={m.label} className="group">
+              <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-400 to-purple-400">
                 {m.value}
               </div>
               <div className="text-slate-500 text-[10px] mt-0.5">{m.label}</div>
@@ -228,7 +233,7 @@ function IdentityPanel() {
       <a
         href="/assets/resume.pdf"
         download
-        className="flex items-center justify-center gap-2 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-xl py-2.5 transition-colors"
+        className="flex items-center justify-center gap-2 text-xs font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300 border border-cyan-500/30 hover:border-cyan-500/60 rounded-xl py-2.5 transition-all"
       >
         <Download className="w-3.5 h-3.5" /> Download Resume
       </a>
@@ -285,19 +290,20 @@ function OverviewPanel() {
       <MobileIdentityBanner />
 
       {/* Featured Architecture */}
-      <div className="bento-card p-5">
+      <div className="bento-card p-5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
         <p className="text-slate-500 text-[10px] font-semibold tracking-widest uppercase mb-3">
           Featured Architecture
         </p>
-        <div className={`h-0.5 rounded-full bg-gradient-to-r ${featuredProject.gradient} mb-4`} />
+        <div className={`h-1 rounded-full bg-gradient-to-r ${featuredProject.gradient} mb-4`} />
         <h3 className="text-white font-bold text-base mb-1">{featuredProject.title}</h3>
         <p className="text-slate-400 text-sm leading-relaxed mb-3">{featuredProject.description}</p>
-        <div className="bg-slate-900/80 rounded-lg p-3 font-mono text-xs text-cyan-300 mb-4">
+        <div className="bg-slate-900/80 border border-slate-800 rounded-lg p-3 font-mono text-xs text-cyan-300 mb-4">
           {featuredProject.architecture}
         </div>
         <div className="flex flex-wrap gap-1.5">
           {featuredProject.technologies.slice(0, 5).map((t) => (
-            <Badge key={t} variant="outline" className="text-xs border-slate-700 text-slate-400">
+            <Badge key={t} variant="outline" className="text-xs border-slate-700 text-slate-400 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors">
               {t}
             </Badge>
           ))}
@@ -313,9 +319,9 @@ function OverviewPanel() {
           </p>
           <div className="space-y-2">
             {featuredProject.impact.slice(0, 4).map((imp) => (
-              <div key={imp} className="flex items-start gap-2 text-xs">
+              <div key={imp} className="flex items-start gap-2 text-xs group">
                 <span className="text-emerald-400 mt-0.5 shrink-0">▸</span>
-                <span className="text-slate-300">{imp}</span>
+                <span className="text-slate-300 group-hover:text-white transition-colors">{imp}</span>
               </div>
             ))}
           </div>
@@ -330,14 +336,14 @@ function OverviewPanel() {
             {awards.map((award) => {
               const Icon = awardIconMap[award.icon] ?? Trophy;
               return (
-                <div key={award.id} className="flex items-center gap-2.5">
+                <div key={award.id} className="flex items-center gap-2.5 group">
                   <div
-                    className={`w-6 h-6 rounded-lg bg-gradient-to-br ${award.gradient} flex items-center justify-center shrink-0`}
+                    className={`w-7 h-7 rounded-lg bg-gradient-to-br ${award.gradient} flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform`}
                   >
-                    <Icon className="w-3 h-3 text-white" />
+                    <Icon className="w-3.5 h-3.5 text-white" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-slate-300 text-xs font-medium truncate">{award.title}</div>
+                    <div className="text-slate-300 text-xs font-medium truncate group-hover:text-white transition-colors">{award.title}</div>
                     <div className="text-slate-500 text-[10px]">{award.year}</div>
                   </div>
                 </div>
@@ -354,21 +360,21 @@ function ExperiencePanel() {
   return (
     <div className="relative">
       {/* Vertical timeline line */}
-      <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-purple-500/30 to-transparent" />
+      <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/60 via-purple-500/30 to-transparent" />
 
       <div className="space-y-4">
         {experiences.map((exp) => (
           <div key={exp.id} className="relative pl-11">
             {/* Timeline dot */}
-            <div
-              className={`absolute left-3.5 top-5 w-3 h-3 rounded-full border-2 -translate-x-1/2 ${
-                exp.current
-                  ? "bg-cyan-400 border-cyan-400 shadow-lg shadow-cyan-500/50"
-                  : "bg-slate-800 border-slate-600"
-              }`}
-            />
+            {exp.current ? (
+              <div className="absolute left-3.5 top-5 -translate-x-1/2">
+                <div className="w-3 h-3 rounded-full bg-cyan-400 border-2 border-cyan-400 neon-dot" />
+              </div>
+            ) : (
+              <div className="absolute left-3.5 top-5 w-3 h-3 rounded-full border-2 bg-slate-800 border-slate-600 -translate-x-1/2" />
+            )}
 
-            <div className="bento-card p-5">
+            <div className={`bento-card p-5 ${exp.current ? "border-cyan-500/20" : ""}`}>
               <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                 <div>
                   <div className="flex items-center gap-2">
@@ -404,7 +410,7 @@ function ExperiencePanel() {
 
               <div className="flex flex-wrap gap-1">
                 {exp.technologies.slice(0, 5).map((t) => (
-                  <Badge key={t} variant="outline" className="text-[10px] border-slate-700 text-slate-500 py-0">
+                  <Badge key={t} variant="outline" className="text-[10px] border-slate-700 text-slate-500 py-0 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors">
                     {t}
                   </Badge>
                 ))}
@@ -421,7 +427,8 @@ function SkillsPanel() {
   return (
     <div className="grid sm:grid-cols-2 gap-4">
       {skillCategories.map((cat) => (
-        <div key={cat.title} className="bento-card p-5">
+        <div key={cat.title} className="bento-card p-5 group relative overflow-hidden">
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shimmer" />
           <h3
             className={`text-sm font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r ${headerColorMap[cat.color]}`}
           >
@@ -432,7 +439,7 @@ function SkillsPanel() {
               <Badge
                 key={sk}
                 variant="outline"
-                className={`${badgeColorMap[cat.color]} border text-xs py-0.5 cursor-default`}
+                className={`${badgeColorMap[cat.color]} border text-xs py-0.5 cursor-default hover:scale-105 transition-transform`}
               >
                 {sk}
               </Badge>
@@ -453,10 +460,11 @@ function ProjectsPanel() {
         {projects.map((proj) => (
           <div
             key={proj.id}
-            className="bento-card group cursor-pointer"
+            className="bento-card group cursor-pointer relative overflow-hidden"
             onClick={() => setSelected(proj)}
           >
-            <div className={`h-1 rounded-t-2xl bg-gradient-to-r ${proj.gradient}`} />
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shimmer" />
+            <div className={`h-1.5 bg-gradient-to-r ${proj.gradient} group-hover:h-2 transition-all duration-300`} />
             <div className="p-5">
               <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-widest">
                 {proj.category}
@@ -467,7 +475,7 @@ function ProjectsPanel() {
               <p className="text-slate-400 text-xs mb-3 line-clamp-2 leading-relaxed">
                 {proj.description}
               </p>
-              <div className="bg-slate-900/80 rounded p-2 font-mono text-[10px] text-slate-400 mb-3">
+              <div className="bg-slate-900/80 border border-slate-800 rounded p-2 font-mono text-[10px] text-slate-400 mb-3">
                 {proj.architecture}
               </div>
               <div className="flex flex-wrap gap-1 mb-3">
@@ -480,7 +488,7 @@ function ProjectsPanel() {
                   </span>
                 ))}
               </div>
-              <div className="flex items-center gap-1 text-cyan-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex items-center gap-1 text-cyan-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-all">
                 View details <ChevronRight className="w-3 h-3" />
               </div>
             </div>
@@ -582,8 +590,8 @@ function ArchitecturePanel() {
             onClick={() => setActive(d.id)}
             className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
               active === d.id
-                ? "bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30"
-                : "bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700"
+                ? "bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30 scale-105"
+                : "bg-slate-800 border border-slate-700 text-slate-400 hover:text-white hover:bg-slate-700 hover:border-slate-600"
             }`}
           >
             {d.title}
@@ -677,24 +685,24 @@ export default function BentoDashboard() {
   return (
     <div className="h-screen overflow-hidden bg-slate-950 flex flex-col">
       {/* ── Navigation bar ── */}
-      <header className="shrink-0 h-14 bg-slate-950/80 backdrop-blur-md border-b border-white/10 flex items-center justify-between px-4 gap-3">
+      <header className="shrink-0 h-14 bg-slate-950/90 backdrop-blur-md border-b border-white/8 flex items-center justify-between px-4 gap-3 shadow-lg shadow-black/20">
         {/* Logo */}
         <div className="flex items-center gap-2 shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-white text-xs select-none">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-white text-xs select-none shadow-md shadow-cyan-500/20">
             US
           </div>
           <span className="font-semibold text-white text-sm hidden sm:block">Upamanyu Samal</span>
         </div>
 
         {/* Tab navigation */}
-        <nav className="flex items-center gap-1 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+        <nav className="flex items-center gap-0.5 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-all ${
+              className={`relative px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-all ${
                 activeTab === tab.id
-                  ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/40"
+                  ? "bg-cyan-500/15 text-cyan-400 border border-cyan-500/40 shadow-sm shadow-cyan-500/10"
                   : "text-slate-400 hover:text-white hover:bg-white/5 border border-transparent"
               }`}
             >
@@ -706,7 +714,7 @@ export default function BentoDashboard() {
         {/* Resume CTA */}
         <Button
           size="sm"
-          className="shrink-0 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-1.5 text-xs hidden sm:flex"
+          className="shrink-0 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-1.5 text-xs hidden sm:flex shadow-md shadow-cyan-500/20 hover:shadow-cyan-400/30 transition-shadow"
           asChild
         >
           <a href="/assets/resume.pdf" download>

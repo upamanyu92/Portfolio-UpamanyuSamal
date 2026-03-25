@@ -24,7 +24,7 @@ export default function Experience() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-purple-500/30 to-transparent" />
+          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/60 via-purple-500/40 to-transparent" />
 
           <div className="space-y-10">
             {experiences.map((exp, index) => (
@@ -37,15 +37,15 @@ export default function Experience() {
                 className="relative pl-16"
               >
                 {/* Timeline Dot */}
-                <div
-                  className={`absolute left-4 top-5 w-4 h-4 rounded-full border-2 -translate-x-1/2 ${
-                    exp.current
-                      ? "bg-cyan-400 border-cyan-400 shadow-lg shadow-cyan-500/50"
-                      : "bg-slate-800 border-slate-600"
-                  }`}
-                />
+                {exp.current ? (
+                  <div className="absolute left-4 top-5 -translate-x-1/2">
+                    <div className="w-4 h-4 rounded-full bg-cyan-400 border-2 border-cyan-400 neon-dot" />
+                  </div>
+                ) : (
+                  <div className="absolute left-4 top-5 w-4 h-4 rounded-full border-2 bg-slate-800 border-slate-600 -translate-x-1/2" />
+                )}
 
-                <div className="glass-card p-6 hover:border-cyan-500/30 transition-all">
+                <div className={`glass-card p-6 transition-all ${exp.current ? "hover:border-cyan-500/40" : "hover:border-white/20"}`}>
                   {/* Header */}
                   <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div>
@@ -88,7 +88,7 @@ export default function Experience() {
                       <Badge
                         key={tech}
                         variant="outline"
-                        className="text-xs bg-slate-800/50 border-slate-700 text-slate-400"
+                        className="text-xs bg-slate-800/50 border-slate-700 text-slate-400 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors"
                       >
                         {tech}
                       </Badge>

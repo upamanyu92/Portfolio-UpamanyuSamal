@@ -62,6 +62,7 @@ export default function Contact() {
                   href: `mailto:${profileData.email}`,
                   color: "text-cyan-400",
                   bg: "bg-cyan-500/10",
+                  border: "border-cyan-500/20 hover:border-cyan-500/50",
                 },
                 {
                   icon: Linkedin,
@@ -70,6 +71,7 @@ export default function Contact() {
                   href: profileData.linkedin,
                   color: "text-blue-400",
                   bg: "bg-blue-500/10",
+                  border: "border-blue-500/20 hover:border-blue-500/50",
                 },
                 {
                   icon: Github,
@@ -78,6 +80,7 @@ export default function Contact() {
                   href: profileData.github,
                   color: "text-purple-400",
                   bg: "bg-purple-500/10",
+                  border: "border-purple-500/20 hover:border-purple-500/50",
                 },
               ].map((contact) => (
                 <a
@@ -85,10 +88,10 @@ export default function Contact() {
                   href={contact.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 glass-card p-4 hover:border-white/20 transition-all group"
+                  className={`flex items-center gap-4 glass-card p-4 border ${contact.border} transition-all group`}
                 >
                   <div
-                    className={`w-10 h-10 rounded-lg ${contact.bg} flex items-center justify-center shrink-0`}
+                    className={`w-10 h-10 rounded-lg ${contact.bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
                   >
                     <contact.icon className={`w-5 h-5 ${contact.color}`} />
                   </div>
@@ -109,7 +112,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="glass-card p-6 space-y-4">
+            <form onSubmit={handleSubmit} className="glass-card p-6 space-y-4 border border-white/10">
               <div>
                 <label className="block text-slate-400 text-sm mb-1.5">Your Name</label>
                 <input
@@ -118,7 +121,7 @@ export default function Contact() {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="John Doe"
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all"
                 />
               </div>
               <div>
@@ -129,7 +132,7 @@ export default function Contact() {
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="you@example.com"
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all"
                 />
               </div>
               <div>
@@ -140,14 +143,14 @@ export default function Contact() {
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   placeholder="Tell me about your project or opportunity..."
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors resize-none"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all resize-none"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={status === "loading" || status === "success"}
-                className="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-2"
+                className="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-2 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/30 transition-shadow"
               >
                 {status === "loading" ? (
                   <>Sending...</>

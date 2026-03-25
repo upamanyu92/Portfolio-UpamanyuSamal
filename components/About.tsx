@@ -75,8 +75,11 @@ export default function About() {
           >
             {/* Avatar */}
             <div className="flex items-center gap-4">
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 flex items-center justify-center text-3xl font-bold text-white shadow-xl shadow-cyan-500/20">
-                US
+              <div className="relative shrink-0">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-purple-600 blur-md opacity-50" />
+                <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 flex items-center justify-center text-3xl font-bold text-white shadow-xl">
+                  US
+                </div>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">Upamanyu Samal</h3>
@@ -88,8 +91,10 @@ export default function About() {
             {/* Highlight Cards */}
             <div className="grid grid-cols-2 gap-4">
               {highlights.map((h) => (
-                <div key={h.title} className={`glass-card p-4 ${h.bg}`}>
-                  <h.icon className={`w-6 h-6 ${h.color} mb-2`} />
+                <div key={h.title} className={`glass-card p-4 ${h.bg} hover:scale-[1.02] transition-transform`}>
+                  <div className={`w-8 h-8 rounded-lg ${h.bg} border border-current/20 flex items-center justify-center mb-2`}>
+                    <h.icon className={`w-4 h-4 ${h.color}`} />
+                  </div>
                   <div className={`font-bold ${h.color} text-sm`}>{h.title}</div>
                   <div className="text-slate-400 text-xs mt-1">{h.description}</div>
                 </div>
