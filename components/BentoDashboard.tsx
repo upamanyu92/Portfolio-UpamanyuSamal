@@ -20,10 +20,11 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { profileData, skillCategories, experiences, projects, awards } from "@/data/profile";
 import type { Project } from "@/data/profile";
+import ParticleText from "@/components/ParticleText";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type Tab = "home" | "experience" | "skills" | "projects" | "architecture";
+type Tab = "home" | "experience" | "skills" | "projects" | "architecture" | "playground";
 
 const tabs: { id: Tab; label: string }[] = [
   { id: "home", label: "Overview" },
@@ -31,6 +32,7 @@ const tabs: { id: Tab; label: string }[] = [
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
   { id: "architecture", label: "Architecture" },
+  { id: "playground", label: "Playground" },
 ];
 
 // ─── Static data ─────────────────────────────────────────────────────────────
@@ -677,6 +679,44 @@ function ArchitecturePanel() {
   );
 }
 
+// ─── Playground panel ─────────────────────────────────────────────────────────
+
+function PlaygroundPanel() {
+  return (
+    <div className="space-y-6">
+      <div className="bento-card p-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+        <p className="text-slate-500 text-xs font-semibold tracking-widest uppercase mb-1">
+          Interactive Demo
+        </p>
+        <h2 className="text-white font-bold text-xl mb-1">Particle Text Engine</h2>
+        <p className="text-slate-400 text-sm mb-5 max-w-lg">
+          10,000 real-time 3D particles morph between a rotating globe and your text. Type below to
+          see them transform — hover to scatter, double-click to reset.
+        </p>
+        <ParticleText />
+      </div>
+
+      {/* Tech callout */}
+      <div className="grid sm:grid-cols-3 gap-4">
+        {[
+          { label: "10,000 Particles", sub: "Float32Array typed arrays" },
+          { label: "True 3D Engine", sub: "Perspective FOV projection" },
+          { label: "Zero Dependencies", sub: "Canvas API · 60 FPS" },
+        ].map((item) => (
+          <div
+            key={item.label}
+            className="bento-card p-5 flex flex-col gap-1"
+          >
+            <div className="text-cyan-400 font-semibold text-sm">{item.label}</div>
+            <div className="text-slate-500 text-xs">{item.sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main dashboard ───────────────────────────────────────────────────────────
 
 export default function BentoDashboard() {
@@ -744,6 +784,7 @@ export default function BentoDashboard() {
               {activeTab === "skills" && <SkillsPanel />}
               {activeTab === "projects" && <ProjectsPanel />}
               {activeTab === "architecture" && <ArchitecturePanel />}
+              {activeTab === "playground" && <PlaygroundPanel />}
             </motion.div>
           </AnimatePresence>
         </main>
