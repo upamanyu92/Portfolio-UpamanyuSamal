@@ -45,8 +45,9 @@ const colorMap: Record<string, { border: string; icon: string; bg: string }> = {
 
 export default function Principles() {
   return (
-    <section id="principles" className="section-padding bg-slate-900/50">
-      <div className="max-w-6xl mx-auto">
+    <section id="principles" className="section-padding relative overflow-hidden">
+      <div className="mesh-orb orb-float w-[350px] h-[350px] bg-pink-500/[0.03] top-0 -right-20" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

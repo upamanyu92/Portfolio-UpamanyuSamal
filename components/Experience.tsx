@@ -6,8 +6,9 @@ import { Badge } from "@/components/ui/badge";
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-padding bg-slate-900/50">
-      <div className="max-w-4xl mx-auto">
+    <section id="experience" className="section-padding relative overflow-hidden">
+      <div className="mesh-orb orb-float-reverse w-[400px] h-[400px] bg-emerald-500/[0.03] bottom-0 -right-20" aria-hidden="true" />
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

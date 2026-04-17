@@ -8,14 +8,17 @@ const FOV = 550;
 const CAMERA_Z = 600;
 const REPEL_RADIUS = 100;
 const REPEL_FORCE = 8;
-const MAX_CHARS_PER_LINE = 12;
 const SAMPLE_STEP = 3;
 const ALPHA_THRESHOLD = 120;
+const SPHERE_SPRING = 0.02;
+const TEXT_SPRING = 0.022;
+const FRICTION = 0.82;
+const ORBITAL_JITTER = 1.8;
 
-// Fisher-Yates shuffle for an array of indices
-function shuffleIndices(arr: Uint16Array | number[]): void {
+// Fisher-Yates shuffle (works on Uint32Array or number[])
+function shuffleIndices(arr: Uint32Array | number[]): void {
   for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = (Math.random() * (i + 1)) | 0;
     const tmp = arr[i];
     arr[i] = arr[j];
     arr[j] = tmp;
@@ -40,76 +43,103 @@ function buildSphere(
   }
 }
 
-// Sample text into a list of {x,y} pixel positions via off-screen canvas
+// Word-wrap text into lines, handling words longer than maxChars
+function wrapText(text: string, maxChars: number): string[] {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return [];
+
+  const lines: string[] = [];
+  let line = "";
+
+  for (const word of words) {
+    if (word.length > maxChars) {
+      if (line) { lines.push(line); line = ""; }
+      for (let i = 0; i < word.length; i += maxChars) {
+        lines.push(word.slice(i, i + maxChars));
+      }
+      continue;
+    }
+    const next = line ? line + " " + word : word;
+    if (next.length <= maxChars) {
+      line = next;
+    } else {
+      lines.push(line);
+      line = word;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+// Persistent offscreen canvas for text sampling (avoids per-call allocation)
+let _textCanvas: HTMLCanvasElement | null = null;
+let _textCtx: CanvasRenderingContext2D | null = null;
+
+function getTextCtx(): { canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D } {
+  if (!_textCanvas) {
+    _textCanvas = document.createElement("canvas");
+    _textCtx = _textCanvas.getContext("2d", { willReadFrequently: true })!;
+  }
+  return { canvas: _textCanvas, ctx: _textCtx! };
+}
+
+// Sample text into parallel xs/ys arrays via off-screen canvas
 function sampleText(
   text: string,
   viewW: number,
   viewH: number,
-): { x: number; y: number }[] {
-  const offscreen = document.createElement("canvas");
+): { xs: number[]; ys: number[] } | null {
+  const maxChars = Math.max(8, Math.min(20, Math.floor(viewW / 42)));
+  const lines = wrapText(text, maxChars);
+  if (!lines.length) return null;
 
-  // Split into lines
-  const words = text.trim().split(/\s+/);
-  const lines: string[] = [];
-  let current = "";
-  for (const word of words) {
-    if (current.length === 0) {
-      current = word;
-    } else if (current.length + 1 + word.length <= MAX_CHARS_PER_LINE) {
-      current += " " + word;
-    } else {
-      lines.push(current);
-      current = word;
-    }
-  }
-  if (current.length > 0) lines.push(current);
+  const { canvas: offscreen, ctx } = getTextCtx();
+  offscreen.width = viewW;
+  offscreen.height = viewH;
+  ctx.clearRect(0, 0, viewW, viewH);
 
+  const longest = lines.reduce((m, l) => Math.max(m, l.length), 1);
   const lineCount = lines.length;
   const fontSize = Math.max(
-    28,
+    26,
     Math.min(
-      120,
+      122,
       Math.floor(
-        Math.min(viewW * 0.85, viewH * 0.55) /
-          Math.max(1, lines.reduce((a, l) => Math.max(a, l.length), 0)) *
-          1.45,
+        Math.min(
+          (viewW * 0.88) / longest * 1.6,
+          (viewH * 0.6) / Math.max(1, lineCount * 0.95),
+        ),
       ),
     ),
   );
-  const lineHeight = fontSize * 1.25;
-  const totalHeight = lineHeight * lineCount;
 
-  offscreen.width = viewW;
-  offscreen.height = viewH;
-  const ctx = offscreen.getContext("2d")!;
-  ctx.clearRect(0, 0, viewW, viewH);
-  ctx.fillStyle = "#ffffff";
-  ctx.font = `900 ${fontSize}px Arial Black, Arial, sans-serif`;
+  const lineHeight = fontSize * 1.18;
+  const blockH = lineHeight * lineCount;
+  const startY = viewH * 0.5 - blockH * 0.5 + lineHeight * 0.5;
+
+  ctx.fillStyle = "#fff";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
+  ctx.font = `900 ${fontSize}px Arial Black, Arial, sans-serif`;
 
-  const startY = viewH / 2 - totalHeight / 2 + lineHeight / 2;
-  for (let li = 0; li < lines.length; li++) {
-    ctx.fillText(lines[li], viewW / 2, startY + li * lineHeight);
+  for (let li = 0; li < lineCount; li++) {
+    ctx.fillText(lines[li], viewW * 0.5, startY + li * lineHeight);
   }
 
-  const imageData = ctx.getImageData(0, 0, viewW, viewH);
-  const data = imageData.data;
-  const pts: { x: number; y: number }[] = [];
+  const data = ctx.getImageData(0, 0, viewW, viewH).data;
+  const xs: number[] = [];
+  const ys: number[] = [];
 
-  const step = SAMPLE_STEP;
-  for (let y = 0; y < viewH; y += step) {
-    for (let x = 0; x < viewW; x += step) {
+  for (let y = 0; y < viewH; y += SAMPLE_STEP) {
+    for (let x = 0; x < viewW; x += SAMPLE_STEP) {
       const alpha = data[(y * viewW + x) * 4 + 3];
       if (alpha > ALPHA_THRESHOLD) {
-        pts.push({
-          x: x - viewW / 2 + (Math.random() - 0.5) * 0.4,
-          y: y - viewH / 2 + (Math.random() - 0.5) * 0.4,
-        });
+        xs.push(x - viewW * 0.5 + (Math.random() - 0.5) * 0.4);
+        ys.push(y - viewH * 0.5 + (Math.random() - 0.5) * 0.4);
       }
     }
   }
-  return pts;
+  return xs.length > 0 ? { xs, ys } : null;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -149,51 +179,73 @@ export default function ParticleText() {
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
     const w = container.clientWidth;
     const h = container.clientHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
+
+    const ctx2d = canvas.getContext("2d");
+    if (ctx2d) {
+      ctx2d.setTransform(1, 0, 0, 1, 0, 0);
+      ctx2d.scale(dpr, dpr);
+    }
 
     const s = sim.current;
     const baseDim = Math.min(w, h);
     s.R = baseDim > 1200 ? baseDim * 0.28 : baseDim * 0.42;
     buildSphere(s.ox, s.oy, s.oz, s.R);
 
-    // Place particles on sphere immediately if in sphere mode
     if (s.appState === 0) {
       s.tx.set(s.ox);
       s.ty.set(s.oy);
       s.tz.set(s.oz);
+    } else {
+      // Re-sample text targets at new viewport size
+      const currentText = inputRef.current?.value.trim();
+      if (currentText) {
+        const pts = sampleText(currentText, w, h);
+        if (pts) {
+          const len = pts.xs.length;
+          const order = new Uint32Array(len);
+          for (let i = 0; i < len; i++) order[i] = i;
+          shuffleIndices(order);
+          for (let i = 0; i < N; i++) {
+            const id = order[i % len];
+            s.tx[i] = pts.xs[id];
+            s.ty[i] = pts.ys[id];
+            s.tz[i] = 0;
+          }
+        }
+      }
     }
   }, []);
 
   // Apply a text target to all particles
   const applyText = useCallback((text: string) => {
-    const canvas = canvasRef.current;
     const container = containerRef.current;
-    if (!canvas || !container) return;
+    if (!container) return;
 
-    const dpr = window.devicePixelRatio || 1;
-    const w = canvas.width / dpr;
-    const h = canvas.height / dpr;
+    const w = container.clientWidth;
+    const h = container.clientHeight;
 
     const pts = sampleText(text, w, h);
-    if (pts.length === 0) return;
+    if (!pts) return;
 
     const s = sim.current;
     s.appState = 1;
 
-    // Shuffle indices so particle-to-point mapping looks organic
-    const indices = new Array(pts.length).fill(0).map((_, i) => i);
-    shuffleIndices(indices);
+    const len = pts.xs.length;
+    const order = new Uint32Array(len);
+    for (let i = 0; i < len; i++) order[i] = i;
+    shuffleIndices(order);
 
     for (let i = 0; i < N; i++) {
-      const pt = pts[indices[i % pts.length]];
-      s.tx[i] = pt.x;
-      s.ty[i] = pt.y;
+      const id = order[i % len];
+      s.tx[i] = pts.xs[id];
+      s.ty[i] = pts.ys[id];
       s.tz[i] = 0;
     }
   }, []);
@@ -211,23 +263,23 @@ export default function ParticleText() {
   const startLoop = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
+    const ctx = canvas.getContext("2d", { desynchronized: true })!;
 
     let t = 0;
 
     function frame() {
       const s = sim.current;
-      const dpr = window.devicePixelRatio || 1;
-      const W = canvas!.width;
-      const H = canvas!.height;
-      const cx = W / 2;
-      const cy = H / 2;
+      const container = containerRef.current;
+      if (!container) { s.animId = requestAnimationFrame(frame); return; }
 
-      // Clear
-      ctx.clearRect(0, 0, W, H);
+      const vw = container.clientWidth;
+      const vh = container.clientHeight;
+      const cx = vw * 0.5;
+      const cy = vh * 0.5;
 
-      const sp = s.appState === 0 ? 0.02 : 0.022;
-      const friction = 0.82;
+      ctx.clearRect(0, 0, vw, vh);
+
+      const spring = s.appState === 0 ? SPHERE_SPRING : TEXT_SPRING;
 
       // Rotate sphere targets every frame
       if (s.appState === 0) {
@@ -235,49 +287,47 @@ export default function ParticleText() {
         const cosR = Math.cos(s.rotY);
         const sinR = Math.sin(s.rotY);
         for (let i = 0; i < N; i++) {
-          const ox = s.ox[i];
-          const oz = s.oz[i];
-          s.tx[i] = ox * cosR - oz * sinR;
-          s.tz[i] = ox * sinR + oz * cosR;
+          const oxVal = s.ox[i];
+          const ozVal = s.oz[i];
+          s.tx[i] = oxVal * cosR - ozVal * sinR;
+          s.tz[i] = oxVal * sinR + ozVal * cosR;
           s.ty[i] = s.oy[i];
         }
       }
 
-      // Mouse repulsion (text mode only)
-      const mx = (s.mouseX - canvas!.offsetLeft) * dpr;
-      const my = (s.mouseY - canvas!.offsetTop) * dpr;
+      // Batch fillStyle for text mode (all particles same color)
+      if (s.appState === 1) {
+        ctx.fillStyle = "hsl(190,90%,85%)";
+      }
 
-      ctx.save();
       for (let i = 0; i < N; i++) {
-        // Spring attract to target
-        let ax = (s.tx[i] - s.px[i]) * sp;
-        let ay = (s.ty[i] - s.py[i]) * sp;
-        let az = (s.tz[i] - s.pz[i]) * sp;
+        let ax = (s.tx[i] - s.px[i]) * spring;
+        let ay = (s.ty[i] - s.py[i]) * spring;
+        const az = (s.tz[i] - s.pz[i]) * spring;
 
-        // Orbital wobble in sphere mode
         if (s.appState === 0) {
-          const wobble = Math.sin(t * 0.03 + s.phase[i]) * 1.8;
+          const wobble = Math.sin(t * 0.03 + s.phase[i]) * ORBITAL_JITTER;
           ax += wobble * 0.01;
           ay += wobble * 0.01;
-        }
-
-        // Mouse repulsion in text mode
-        if (s.appState === 1) {
-          const px2d = (s.px[i] * FOV) / (s.pz[i] + CAMERA_Z) + cx;
-          const py2d = (s.py[i] * FOV) / (s.pz[i] + CAMERA_Z) + cy;
-          const dx = px2d - mx;
-          const dy = py2d - my;
+        } else {
+          // Mouse repulsion in text mode
+          const z = s.pz[i] + CAMERA_Z;
+          const inv = FOV / z;
+          const sx = s.px[i] * inv + cx;
+          const sy = s.py[i] * inv + cy;
+          const dx = sx - s.mouseX;
+          const dy = sy - s.mouseY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < REPEL_RADIUS && dist > 0) {
+          if (dist > 0 && dist < REPEL_RADIUS) {
             const force = REPEL_FORCE * (1 - dist / REPEL_RADIUS) * 5;
             ax += (dx / dist) * force;
             ay += (dy / dist) * force;
           }
         }
 
-        s.vx[i] = (s.vx[i] + ax) * friction;
-        s.vy[i] = (s.vy[i] + ay) * friction;
-        s.vz[i] = (s.vz[i] + az) * friction;
+        s.vx[i] = (s.vx[i] + ax) * FRICTION;
+        s.vy[i] = (s.vy[i] + ay) * FRICTION;
+        s.vz[i] = (s.vz[i] + az) * FRICTION;
 
         s.px[i] += s.vx[i];
         s.py[i] += s.vy[i];
@@ -289,27 +339,14 @@ export default function ParticleText() {
         const scale = FOV / z;
         const sx = s.px[i] * scale + cx;
         const sy = s.py[i] * scale + cy;
+        const size = Math.max(0.8, scale * 1.3);
 
-        // Colour
-        let h: number, sl: number, l: number;
+        // Per-particle rainbow in sphere mode
         if (s.appState === 0) {
-          h = (s.hue[i] + t * 25) % 360;
-          sl = 80;
-          l = 65;
-        } else {
-          h = 190;
-          sl = 90;
-          l = 85;
+          ctx.fillStyle = `hsl(${(s.hue[i] + t * 25) % 360},80%,65%)`;
         }
-
-        // Size by depth
-        const radius = Math.max(0.5, scale * 1.2);
-        ctx.beginPath();
-        ctx.arc(sx, sy, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `hsl(${h},${sl}%,${l}%)`;
-        ctx.fill();
+        ctx.fillRect(sx, sy, size, size);
       }
-      ctx.restore();
 
       t++;
       s.animId = requestAnimationFrame(frame);
@@ -398,7 +435,7 @@ export default function ParticleText() {
         <input
           ref={inputRef}
           type="text"
-          maxLength={64}
+          maxLength={120}
           placeholder="Type something…"
           onChange={handleInput}
           className="w-full rounded-full bg-slate-950/80 border border-cyan-500/40 text-cyan-300 placeholder-slate-500 text-sm font-medium text-center px-5 py-3 outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 backdrop-blur-sm transition-all"

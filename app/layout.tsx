@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${lora.variable}`}>
-      <body className="bg-slate-950 text-slate-100 antialiased font-sans">{children}</body>
+      <body className="bg-[#050a18] text-slate-100 antialiased font-sans">{children}</body>
     </html>
   );
 }

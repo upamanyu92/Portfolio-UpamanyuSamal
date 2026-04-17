@@ -11,8 +11,9 @@ export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="section-padding bg-slate-950">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" className="section-padding relative overflow-hidden">
+      <div className="mesh-orb orb-float w-[500px] h-[500px] bg-cyan-500/[0.03] -top-20 left-1/2" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

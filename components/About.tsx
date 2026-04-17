@@ -50,8 +50,10 @@ const coreTech = [
 
 export default function About() {
   return (
-    <section id="about" className="section-padding bg-slate-900/50">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="section-padding relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="mesh-orb orb-float-reverse w-[400px] h-[400px] bg-cyan-500/[0.04] -top-20 -right-20" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

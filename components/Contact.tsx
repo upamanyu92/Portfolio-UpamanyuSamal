@@ -19,8 +19,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-padding bg-slate-950">
-      <div className="max-w-5xl mx-auto">
+    <section id="contact" className="section-padding relative overflow-hidden bg-white/[0.02]">
+      <div className="mesh-orb orb-float-reverse w-[500px] h-[500px] bg-slate-300/[0.03] top-1/4 -left-20" aria-hidden="true" />
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,8 +29,8 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-cyan-400 text-sm font-semibold tracking-widest uppercase">Get In Touch</span>
-          <h2 className="text-4xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+          <span className="text-slate-400 text-sm font-semibold tracking-widest uppercase">Get In Touch</span>
+          <h2 className="text-4xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-500">
             Let&apos;s Connect
           </h2>
           <p className="text-slate-400 mt-4 max-w-xl mx-auto">
@@ -60,27 +61,27 @@ export default function Contact() {
                   label: "Email",
                   value: profileData.email,
                   href: `mailto:${profileData.email}`,
-                  color: "text-cyan-400",
-                  bg: "bg-cyan-500/10",
-                  border: "border-cyan-500/20 hover:border-cyan-500/50",
+                  color: "text-rose-300",
+                  bg: "bg-rose-100/10",
+                  border: "border-rose-200/15 hover:border-rose-300/40",
                 },
                 {
                   icon: Linkedin,
                   label: "LinkedIn",
                   value: "linkedin.com/in/upamanyu-samal",
                   href: profileData.linkedin,
-                  color: "text-blue-400",
-                  bg: "bg-blue-500/10",
-                  border: "border-blue-500/20 hover:border-blue-500/50",
+                  color: "text-sky-300",
+                  bg: "bg-sky-100/10",
+                  border: "border-sky-200/15 hover:border-sky-300/40",
                 },
                 {
                   icon: Github,
                   label: "GitHub",
                   value: "github.com/upamanyu92",
                   href: profileData.github,
-                  color: "text-purple-400",
-                  bg: "bg-purple-500/10",
-                  border: "border-purple-500/20 hover:border-purple-500/50",
+                  color: "text-violet-300",
+                  bg: "bg-violet-100/10",
+                  border: "border-violet-200/15 hover:border-violet-300/40",
                 },
               ].map((contact) => (
                 <a
@@ -88,7 +89,7 @@ export default function Contact() {
                   href={contact.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center gap-4 glass-card p-4 border ${contact.border} transition-all group`}
+                  className={`flex items-center gap-4 rounded-xl bg-white/[0.04] backdrop-blur-sm p-4 border ${contact.border} transition-all group hover:bg-white/[0.07]`}
                 >
                   <div
                     className={`w-10 h-10 rounded-lg ${contact.bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
@@ -96,7 +97,7 @@ export default function Contact() {
                     <contact.icon className={`w-5 h-5 ${contact.color}`} />
                   </div>
                   <div>
-                    <div className="text-slate-400 text-xs">{contact.label}</div>
+                    <div className="text-slate-500 text-xs">{contact.label}</div>
                     <div className={`${contact.color} text-sm font-medium group-hover:underline`}>
                       {contact.value}
                     </div>
@@ -112,7 +113,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="glass-card p-6 space-y-4 border border-white/10">
+            <form onSubmit={handleSubmit} className="rounded-xl bg-white/[0.04] backdrop-blur-sm p-6 space-y-4 border border-white/10">
               <div>
                 <label className="block text-slate-400 text-sm mb-1.5">Your Name</label>
                 <input
@@ -121,7 +122,7 @@ export default function Contact() {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="John Doe"
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all"
+                  className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-slate-400/30 transition-all"
                 />
               </div>
               <div>
@@ -132,7 +133,7 @@ export default function Contact() {
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="you@example.com"
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all"
+                  className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-slate-400/30 transition-all"
                 />
               </div>
               <div>
@@ -143,14 +144,14 @@ export default function Contact() {
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   placeholder="Tell me about your project or opportunity..."
-                  className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all resize-none"
+                  className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-slate-400/30 transition-all resize-none"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={status === "loading" || status === "success"}
-                className="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-2 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/30 transition-shadow"
+                className="w-full bg-white hover:bg-slate-100 text-slate-900 font-semibold gap-2 shadow-lg shadow-white/10 hover:shadow-white/20 transition-all"
               >
                 {status === "loading" ? (
                   <>Sending...</>
@@ -169,14 +170,14 @@ export default function Contact() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 text-emerald-400 text-sm"
+                  className="flex items-center gap-2 text-emerald-300 text-sm"
                 >
                   <CheckCircle className="w-4 h-4" />
                   Thanks! I&apos;ll get back to you soon.
                 </motion.div>
               )}
               {status === "error" && (
-                <div className="flex items-center gap-2 text-red-400 text-sm">
+                <div className="flex items-center gap-2 text-rose-300 text-sm">
                   <AlertCircle className="w-4 h-4" /> Something went wrong. Please try again.
                 </div>
               )}

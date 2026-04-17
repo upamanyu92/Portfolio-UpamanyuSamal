@@ -7,11 +7,10 @@ import { Button } from "@/components/ui/button";
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Awards", href: "#accolades" },
   { label: "Architecture", href: "#architecture" },
+  { label: "Awards", href: "#accolades" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -52,8 +51,10 @@ export default function Navigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-slate-950/85 backdrop-blur-md border-b border-white/10 shadow-xl shadow-black/20" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-[#050a18]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl shadow-black/30"
+          : "bg-transparent"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -136,7 +137,7 @@ export default function Navigation() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-slate-950/95 backdrop-blur-md border-b border-white/10"
+            className="lg:hidden bg-[#050a18]/95 backdrop-blur-xl border-b border-white/[0.06]"
           >
             <div className="px-4 py-4 flex flex-col gap-2">
               {navLinks.map((link) => {

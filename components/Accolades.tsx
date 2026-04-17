@@ -11,8 +11,9 @@ const iconComponents: Record<string, React.ElementType> = {
 
 export default function Accolades() {
   return (
-    <section id="accolades" className="section-padding bg-slate-950">
-      <div className="max-w-6xl mx-auto">
+    <section id="accolades" className="section-padding relative overflow-hidden">
+      <div className="mesh-orb orb-float-reverse w-[400px] h-[400px] bg-yellow-500/[0.03] -top-10 left-1/4" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

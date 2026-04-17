@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Download, Mail, FolderOpen, ArrowDown, GitBranch, Layers, Zap, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import HeroParticles from "@/components/HeroParticles";
 
 const titles = [
   "Strategic Builder",
@@ -104,29 +105,28 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 py-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-20"
+      style={{ background: "linear-gradient(180deg, #050a18 0%, #0a1628 50%, #050a18 100%)" }}
     >
-      {/* Animated Background */}
+      {/* Animated Particle Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl motion-safe:animate-pulse" />
-        <div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl motion-safe:animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute top-3/4 left-1/2 w-64 h-64 bg-emerald-500/6 rounded-full blur-3xl motion-safe:animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
+        {/* Mesh gradient orbs — slow-floating ambient color */}
+        <div className="mesh-orb orb-float w-[500px] h-[500px] bg-cyan-500/[0.06] top-[5%] left-[10%]" />
+        <div className="mesh-orb orb-float-reverse w-[600px] h-[600px] bg-purple-600/[0.05] bottom-[10%] right-[5%]" />
+        <div className="mesh-orb orb-float w-[300px] h-[300px] bg-emerald-500/[0.03] top-[60%] left-[50%]" />
+
+        <HeroParticles />
+
         {/* Grid overlay */}
         <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: `linear-gradient(rgba(6,182,212,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.8) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(6,182,212,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.6) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
           }}
         />
         {/* Radial vignette */}
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(15,23,42,0.8) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 40% 45%, transparent 30%, rgba(5,10,24,0.9) 100%)" }} />
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4">

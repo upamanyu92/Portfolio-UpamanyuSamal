@@ -19,8 +19,9 @@ const headerColorMap: Record<string, string> = {
 
 export default function Skills() {
   return (
-    <section id="skills" className="section-padding bg-slate-950">
-      <div className="max-w-6xl mx-auto">
+    <section id="skills" className="section-padding relative overflow-hidden">
+      <div className="mesh-orb orb-float w-[350px] h-[350px] bg-purple-500/[0.04] top-10 -left-20" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

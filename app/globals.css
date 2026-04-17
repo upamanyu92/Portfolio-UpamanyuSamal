@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0f172a;
+  --background: #050a18;
   --foreground: #e2e8f0;
 }
 
@@ -28,6 +28,19 @@ body {
   font-family: var(--font-sans);
 }
 
+/* ── Ambient noise texture overlay for depth ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
 .font-editorial {
   font-family: var(--font-serif);
 }
@@ -36,45 +49,67 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, #22d3ee, #a855f7);
+  background-image: linear-gradient(135deg, #22d3ee, #a855f7, #ec4899);
 }
 
+/* ── Glass card — frosted glass ── */
 .glass-card {
-  background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0.75rem;
-  contain: paint;
-  transition: border-color 0.25s, box-shadow 0.25s;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
 }
 
+/* ── Bento card — premium frosted glass with glow ── */
 .bento-card {
-  background-color: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-  contain: paint;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(10, 15, 30, 0.9) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.25rem;
+  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+}
+
+.bento-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 30% 0%, rgba(6, 182, 212, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .bento-card:hover {
-  border-color: rgba(6, 182, 212, 0.4);
-  transform: translateY(-3px);
-  box-shadow: 0 0 24px rgba(6, 182, 212, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4);
+  border-color: rgba(6, 182, 212, 0.3);
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 30px rgba(6, 182, 212, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.bento-card:hover::before {
+  opacity: 1;
 }
 
 /* ── Glow utilities ── */
 .glow-cyan {
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), 0 0 40px rgba(6, 182, 212, 0.15);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), 0 0 60px rgba(6, 182, 212, 0.1);
 }
 
 .glow-purple {
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.15);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 60px rgba(168, 85, 247, 0.1);
 }
 
 /* ── Gradient border ── */
@@ -102,9 +137,9 @@ body {
 }
 
 .shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
   background-size: 200% auto;
-  animation: shimmer 2.5s linear infinite;
+  animation: shimmer 3s linear infinite;
 }
 
 /* ── Neon pulse for status indicators ── */
@@ -117,15 +152,50 @@ body {
   animation: neon-pulse 2s ease-in-out infinite;
 }
 
+/* ── Floating orb animation (for ambient backgrounds) ── */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%      { transform: translate(30px, -20px) scale(1.05); }
+  50%      { transform: translate(-15px, 15px) scale(0.95); }
+  75%      { transform: translate(20px, 10px) scale(1.02); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%      { transform: translate(-25px, 15px) scale(0.97); }
+  50%      { transform: translate(20px, -25px) scale(1.04); }
+  75%      { transform: translate(-10px, -10px) scale(1); }
+}
+
+.orb-float {
+  animation: float-slow 20s ease-in-out infinite;
+}
+
+.orb-float-reverse {
+  animation: float-reverse 25s ease-in-out infinite;
+}
+
+/* ── Ambient mesh gradient orbs ── */
+.mesh-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ── Section padding ── */
 .section-padding {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
 @media (min-width: 768px) {
   .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
     padding-left: 2rem;
     padding-right: 2rem;
   }
@@ -152,7 +222,31 @@ body {
   }
 }
 
-/* Respect user motion preferences — improves performance on low-powered devices */
+/* ── Section header styling ── */
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #ffffff, #94a3b8);
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 3rem;
+  }
+}
+
+/* Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -166,13 +260,32 @@ body {
   }
 }
 
+/* Smooth scroll offset for fixed navigation */
+[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Section divider gradient line */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(6, 182, 212, 0.25), rgba(168, 85, 247, 0.25), transparent);
+}
+
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #06b6d4;
+  background: linear-gradient(to bottom, #06b6d4, #a855f7);
   border-radius: 3px;
 }
+
+/* ── Selection highlight ── */
+::selection {
+  background: rgba(6, 182, 212, 0.3);
+  color: #fff;
+}
+
