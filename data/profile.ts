@@ -124,10 +124,10 @@ export const skillCategories: SkillCategory[] = [
 
 export const experiences: Experience[] = [
   {
-    id: "atl-tr",
+    id: "lse-tr",
     role: "Lead Software Engineer",
     company: "Thomson Reuters",
-    period: "2022 – Present",
+    period: "2026 – Present",
     location: "Bangalore, India",
     current: true,
     description: [
@@ -137,6 +137,20 @@ export const experiences: Experience[] = [
       "Eliminated 80% of engineering rework through event-driven architecture patterns and domain-driven service boundaries",
       "Established Prometheus/Grafana observability stack enabling proactive SLA monitoring and on-call incident reduction",
       "Mentored and led cross-functional engineering teams across multiple time zones, driving 2× delivery throughput",
+    ],
+    technologies: ["AWS Lambda", "ECS", "DynamoDB", "Python", "FastAPI", "Elasticsearch", "Docker", "Kubernetes"],
+  },
+  {
+    id: "atl-tr",
+    role: "Associate Technical Lead",
+    company: "Thomson Reuters",
+    period: "2022 – 2026",
+    location: "Bangalore, India",
+    description: [
+      "Led technical direction for agentic AI and cloud-native initiatives, guiding cross-functional squads",
+      "Drove architecture decisions for event-driven pipelines and domain-driven service boundaries",
+      "Owned system design reviews and contributed to engineering roadmap planning",
+      "Mentored senior engineers and coordinated delivery across multiple time zones",
     ],
     technologies: ["AWS Lambda", "ECS", "DynamoDB", "Python", "FastAPI", "Elasticsearch", "Docker", "Kubernetes"],
   },
