@@ -168,20 +168,6 @@ export const experiences: Experience[] = [
     ],
     technologies: ["Java", "Spring Boot", "React", "PostgreSQL", "Jenkins", "AWS"],
   },
-  {
-    id: "se-prev",
-    role: "Software Engineer",
-    company: "Infosys Limited",
-    period: "2015 – 2018",
-    location: "Bengaluru, India",
-    description: [
-      "Built and maintained Java-based backend services for banking clients serving 1M+ daily transactions",
-      "Developed frontend interfaces with JavaScript and AngularJS for enterprise banking dashboards",
-      "Introduced automated integration testing harness, reducing regression cycles by 30%",
-      "Collaborated in agile teams using Scrum ceremonies and continuous delivery practices",
-    ],
-    technologies: ["Java", "AngularJS", "Oracle DB", "Spring MVC", "Maven"],
-  },
 ];
 
 export const projects: Project[] = [
