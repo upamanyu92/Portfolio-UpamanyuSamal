@@ -46,8 +46,8 @@ export interface Award {
 
 export const profileData = {
   name: "Upamanyu Samal",
-  title: "Strategic Builder · AI Systems · Cloud Architecture",
-  email: "upamanyu.samal@email.com",
+  title: "Lead Software Engineer · Agentic AI Systems · Cloud Architecture",
+  email: "Upamanyu.site@gmail.com",
   linkedin: "https://linkedin.com/in/upamanyu-samal",
   github: "https://github.com/upamanyu92",
   location: "India",
@@ -125,10 +125,10 @@ export const skillCategories: SkillCategory[] = [
 export const experiences: Experience[] = [
   {
     id: "atl-tr",
-    role: "Associate Technical Lead",
+    role: "Lead Software Engineer",
     company: "Thomson Reuters",
     period: "2022 – Present",
-    location: "Hyderabad, India",
+    location: "Bangalore, India",
     current: true,
     description: [
       "Architected and deployed containerized content processing platform (FastAPI + Docker + ECS) processing 40M+ legal documents at 99.9% SLA",
@@ -145,7 +145,7 @@ export const experiences: Experience[] = [
     role: "Senior Software Engineer",
     company: "Thomson Reuters",
     period: "2020 – 2022",
-    location: "Hyderabad, India",
+    location: "Bangalore, India",
     description: [
       "Designed and deployed enterprise microservices for legal content platforms on AWS",
       "Implemented Redis distributed caching strategy reducing API p99 latency by 40%",
@@ -159,7 +159,7 @@ export const experiences: Experience[] = [
     role: "Software Engineer",
     company: "Thomson Reuters",
     period: "2018 – 2020",
-    location: "Hyderabad, India",
+    location: "Bangalore, India",
     description: [
       "Full-stack development with Java Spring Boot and React powering legal workflow applications",
       "Database query optimization reducing read-heavy endpoint load by 50% through index tuning and materialized views",
@@ -171,9 +171,9 @@ export const experiences: Experience[] = [
   {
     id: "se-prev",
     role: "Software Engineer",
-    company: "Infosys Limited",
+    company: "Thomson Reuters",
     period: "2015 – 2018",
-    location: "Bengaluru, India",
+    location: "Bangalore, India",
     description: [
       "Built and maintained Java-based backend services for banking clients serving 1M+ daily transactions",
       "Developed frontend interfaces with JavaScript and AngularJS for enterprise banking dashboards",
@@ -421,7 +421,7 @@ export const chatbotQA = [
   {
     question: "How can I contact you?",
     answer:
-      "Reach me at upamanyu.samal@email.com, connect on LinkedIn at linkedin.com/in/upamanyu-samal, or explore my code on GitHub at github.com/upamanyu92. The contact form on this page works too!",
+      "Reach me at Upamanyu.site@gmail.com, connect on LinkedIn at linkedin.com/in/upamanyu-samal, or explore my code on GitHub at github.com/upamanyu92. The contact form on this page works too!",
   },
   {
     question: "Download resume",

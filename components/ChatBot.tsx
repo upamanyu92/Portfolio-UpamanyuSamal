@@ -35,7 +35,7 @@ export default function ChatBot() {
       type: "bot",
       text:
         qa?.answer ??
-        "I'm not sure about that, but feel free to reach out directly at upamanyu.samal@email.com!",
+        "I'm not sure about that, but feel free to reach out directly at Upamanyu.site@gmail.com!",
     };
     setMessages((prev) => [...prev, userMsg, botMsg]);
     setInput("");
@@ -53,7 +53,7 @@ export default function ChatBot() {
       type: "bot",
       text:
         matched?.answer ??
-        "Great question! For detailed answers, feel free to email me at upamanyu.samal@email.com or check my projects section.",
+        "Great question! For detailed answers, feel free to email me at Upamanyu.site@gmail.com or check my projects section.",
     };
     setMessages((prev) => [...prev, userMsg, botMsg]);
     setInput("");

@@ -152,7 +152,7 @@ function IdentityPanel() {
             Upamanyu Samal
           </h1>
           <p className="text-cyan-400 text-base font-medium mt-1.5">
-            Software Architect &amp; Technical Lead
+            Lead Software Engineer &amp; Agentic AI Architect
           </p>
         </div>
 
@@ -163,7 +163,7 @@ function IdentityPanel() {
 
         <div className="space-y-3 text-base text-slate-400">
           <div className="flex items-center gap-2">
-            <MapPin className="w-3.5 h-3.5 shrink-0 text-slate-500" /> Hyderabad, India
+            <MapPin className="w-3.5 h-3.5 shrink-0 text-slate-500" /> Bangalore, India
           </div>
           <div className="flex items-center gap-2">
             <Building2 className="w-3.5 h-3.5 shrink-0 text-slate-500" />

@@ -1,0 +1,39 @@
+Upamanyu Samal
+Lead Software Engineer
+Bangalore, India
+Email: Upamanyu.site@gmail.com
+LinkedIn: linkedin.com/in/upamanyu-samal
+GitHub: github.com/upamanyu92
+
+---
+
+Dear Hiring Manager,
+
+I am writing to express my interest in senior engineering and architecture roles where I can leverage my 9+ years of experience shipping production-grade AI systems, cloud-native distributed architectures, and agentic AI platforms.
+
+Currently, as a Lead Software Engineer at Thomson Reuters, I own end-to-end system design — from Kafka ingestion through LLM enrichment to Grafana-monitored serving — processing 40M+ legal documents daily at 99.9% SLA. My work spans the full lifecycle: architecture, trade-offs, deployment, and monitoring.
+
+Key highlights from my career:
+
+- Architected and deployed a containerized content processing platform (FastAPI + Docker + ECS) processing 40M+ legal documents at 99.9% SLA
+- Reduced AI pipeline latency by 60% by migrating batch Lambda jobs to streaming ECS workers backed by SQS
+- Designed zero-downtime ETL migration of 40+ years of legacy legal data using AWS Glue and Step Functions
+- Deployed a production RAG agent (LangChain + OpenAI GPT-4 + Pinecone) processing 10K+ queries/day at p95 < 2s
+- Eliminated 80% of engineering rework through event-driven architecture patterns and domain-driven service boundaries
+- Established Prometheus/Grafana observability stack enabling proactive SLA monitoring and on-call incident reduction
+- Mentored and led cross-functional engineering teams across multiple time zones, driving 2x delivery throughput
+
+My technical depth spans cloud infrastructure (AWS Lambda, ECS, DynamoDB, Kubernetes, Terraform), backend systems (Python, FastAPI, Java, Spring Boot, Node.js), AI/ML integration (LangChain, vector databases, NLP, RAG architectures), and data engineering (Apache Kafka, Elasticsearch, Apache Spark). I am passionate about building agentic AI systems that combine LLMs with robust software architecture to solve real-world problems at scale.
+
+What sets me apart is my ability to bridge the gap between cutting-edge AI capabilities and production-grade engineering. I don't just build prototypes — I design, deploy, and monitor systems that run reliably at scale. I approach every system with a focus on observability, fault tolerance, and maintainability.
+
+I am particularly excited about opportunities that involve:
+- Designing and building agentic AI systems and architectures
+- Leading teams to ship production AI/ML platforms
+- Solving complex distributed systems challenges at scale
+- Driving architectural decisions that have measurable business impact
+
+I would welcome the opportunity to discuss how my experience in AI systems engineering and cloud architecture can contribute to your team's goals. I look forward to connecting.
+
+Warm regards,
+Upamanyu Samal
