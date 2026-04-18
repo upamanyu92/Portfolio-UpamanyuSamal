@@ -85,8 +85,8 @@ export default function About() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">Upamanyu Samal</h3>
-                <p className="text-cyan-400 text-sm">Associate Technical Lead</p>
-                <p className="text-slate-400 text-sm">Thomson Reuters · Hyderabad, India</p>
+                <p className="text-cyan-400 text-sm">Lead Software Engineer</p>
+                <p className="text-slate-400 text-sm">Thomson Reuters · Bangalore, India</p>
               </div>
             </div>
 
@@ -155,9 +155,9 @@ export default function About() {
             <div className="flex flex-wrap gap-6 pt-4">
               {[
                 { label: "Current Company", value: "Thomson Reuters" },
-                { label: "Role", value: "Associate Technical Lead" },
+                { label: "Role", value: "Lead Software Engineer" },
                 { label: "Experience", value: "9+ Years" },
-                { label: "Location", value: "Hyderabad, India" },
+                { label: "Location", value: "Bangalore, India" },
               ].map((item) => (
                 <div key={item.label}>
                   <div className="text-slate-500 text-xs uppercase tracking-wide">{item.label}</div>

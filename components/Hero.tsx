@@ -188,7 +188,7 @@ export default function Hero() {
                 className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 gap-2"
                 asChild
               >
-                <a href="/assets/cover-letter.pdf" download>
+                <a href="/assets/cover-letter.txt" download>
                   <Download className="w-4 h-4" /> Cover Letter
                 </a>
               </Button>
