@@ -70,11 +70,13 @@ export default function GitHubStats() {
     return () => controller.abort();
   }, []);
 
+  const [now] = useState(() => Date.now());
+
   const totalBytes = Object.values(languages).reduce((a, b) => a + b, 0);
 
   const updatedAgo = repo
     ? (() => {
-        const diff = Date.now() - new Date(repo.updated_at).getTime();
+        const diff = now - new Date(repo.updated_at).getTime();
         const days = Math.floor(diff / 86400000);
         if (days === 0) return "today";
         if (days === 1) return "yesterday";

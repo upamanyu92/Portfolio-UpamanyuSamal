@@ -27,38 +27,44 @@ const pipelineSteps = [
   { icon: GitBranch, label: "Serve", detail: "FastAPI + Redis" },
 ];
 
-// CSS-only abstract code visual – no stock images
-function AbstractCodeVisual() {
-  const tokens = [
-    { indent: 0, parts: [{ t: "def ", c: "text-purple-400" }, { t: "process_pipeline", c: "text-cyan-300" }, { t: "(docs):", c: "text-slate-300" }] },
-    { indent: 1, parts: [{ t: "embeddings ", c: "text-slate-300" }, { t: "= ", c: "text-purple-400" }, { t: "model", c: "text-cyan-400" }, { t: ".encode(docs)", c: "text-slate-300" }] },
-    { indent: 1, parts: [{ t: "results ", c: "text-slate-300" }, { t: "= ", c: "text-purple-400" }, { t: "vectordb", c: "text-cyan-400" }, { t: ".search(", c: "text-slate-300" }] },
-    { indent: 2, parts: [{ t: "embeddings,", c: "text-orange-300" }, { t: " top_k", c: "text-slate-300" }, { t: "=", c: "text-purple-400" }, { t: "10", c: "text-emerald-400" }] },
-    { indent: 1, parts: [{ t: ")", c: "text-slate-300" }] },
-    { indent: 1, parts: [{ t: "return ", c: "text-purple-400" }, { t: "llm", c: "text-cyan-400" }, { t: ".generate(results)", c: "text-slate-300" }] },
-  ];
+const systemStages = [
+  { icon: Database, label: "Ingest", detail: "Kafka / SQS", color: "text-cyan-400", bg: "bg-cyan-500/10 border-cyan-500/30" },
+  { icon: Zap, label: "Transform", detail: "Glue / Lambda", color: "text-purple-400", bg: "bg-purple-500/10 border-purple-500/30" },
+  { icon: Layers, label: "Enrich", detail: "LLM + Pinecone", color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/30" },
+  { icon: GitBranch, label: "Serve", detail: "FastAPI + Redis", color: "text-orange-400", bg: "bg-orange-500/10 border-orange-500/30" },
+];
+
+function SystemDiagramVisual() {
   return (
-    <div className="p-4 font-mono text-[11px] h-full flex flex-col justify-between">
-      <div className="text-cyan-400/60 text-[10px] tracking-widest uppercase mb-3 flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-red-500/70" />
-        <span className="w-2 h-2 rounded-full bg-yellow-500/70" />
-        <span className="w-2 h-2 rounded-full bg-emerald-500/70" />
-        <span className="ml-1">pipeline.py</span>
+    <div className="p-5 h-full flex flex-col justify-between">
+      <div className="text-cyan-400/60 text-[10px] tracking-widest uppercase mb-4 flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-cyan-400 neon-dot" />
+        AI Pipeline Architecture
       </div>
-      <div className="space-y-1.5 flex-1">
-        {tokens.map((line, i) => (
-          <div key={i} className="flex items-center gap-1.5">
-            <span className="text-slate-600 w-4 shrink-0 text-right">{i + 1}</span>
-            <span style={{ paddingLeft: `${line.indent * 12}px` }} className="flex flex-wrap gap-0">
-              {line.parts.map((p, j) => (
-                <span key={j} className={p.c}>{p.t}</span>
-              ))}
-            </span>
-          </div>
-        ))}
+      <div className="flex-1 flex flex-col gap-3">
+        {systemStages.map((stage, i) => {
+          const Icon = stage.icon;
+          return (
+            <div key={stage.label} className="flex items-center gap-2">
+              <div className={`flex items-center gap-2 rounded-lg px-3 py-2 border flex-1 ${stage.bg}`}>
+                <Icon className={`w-4 h-4 shrink-0 ${stage.color}`} />
+                <div>
+                  <div className={`text-xs font-semibold ${stage.color}`}>{stage.label}</div>
+                  <div className="text-slate-500 text-[10px]">{stage.detail}</div>
+                </div>
+              </div>
+              {i < systemStages.length - 1 && (
+                <svg width="16" height="16" viewBox="0 0 16 16" className="shrink-0 text-slate-600">
+                  <path d="M4 8h8M9 5l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                </svg>
+              )}
+            </div>
+          );
+        })}
       </div>
       <div className="mt-3 pt-3 border-t border-slate-800 flex items-center gap-2 text-[10px] text-slate-500">
-        <span className="text-emerald-400">✓</span> No errors · Python 3.11
+        <span className="w-2 h-2 rounded-full bg-emerald-400 neon-dot" />
+        <span className="text-emerald-400">40M+ docs/day · 99.9% SLA</span>
       </div>
     </div>
   );
@@ -209,7 +215,7 @@ export default function Hero() {
             transition={{ delay: 0.15 }}
             className="md:col-span-4 bento-card overflow-hidden min-h-[200px]"
           >
-            <AbstractCodeVisual />
+            <SystemDiagramVisual />
           </motion.div>
 
           {/* [3] Stats row — each stat is one bento tile */}
