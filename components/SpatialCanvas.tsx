@@ -82,7 +82,7 @@ function CanvasInner() {
       (n.id === "bio" && bioText.includes(q)) ||
       (n.id === "skills" && skillText.includes(q)) ||
       (n.id === "experience" && expText.includes(q)) ||
-      (n.id === "contact" && ("contact email linkedin github".includes(q) || q === "contact"));
+      (n.id === "contact" && ["contact", "email", "linkedin", "github"].some((kw) => kw.includes(q)));
     return {
       ...n,
       style: {
