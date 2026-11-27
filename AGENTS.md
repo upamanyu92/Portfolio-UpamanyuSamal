@@ -4,7 +4,9 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
 - Stack baseline in this repo: `next@16.2.0`, `react@19.2.4`, `typescript@5`, `tailwindcss@4` (`@import "tailwindcss"` in `app/globals.css`).
-- Primary page composition is in `app/page.tsx`: it renders `BentoDashboard` plus `ChatBotLoader`; keep this split when changing landing-page behavior.
+- Primary page composition is in `app/page.tsx`: it renders `SpatialCanvasLoader` (React Flow canvas; `MobileLayout` on small screens) plus `ChatBotLoader`; keep this split when changing landing-page behavior. Canvas node positions live in `data/canvas-nodes.ts`.
+- GitHub Pages: `GITHUB_PAGES=true` enables static export + basePath. Link `/public` files via `assetPath()` from `@/lib/utils`, never a bare `"/assets/..."` href.
+- Don't add unlayered resets (e.g. `* { margin: 0; padding: 0 }`) to `globals.css`: they override every Tailwind v4 utility.
 - Keep browser-only chatbot code behind `components/ChatBotLoader.tsx` (`next/dynamic` with `{ ssr: false }`) and keep interactive UI components as client components (`"use client"`).
 - Treat `data/profile.ts` as the content source of truth (`profileData`, `experiences`, `projects`, `awards`, `chatbotQA`); update these exports before hardcoding duplicate copy in components.
 - UI pattern is utility-first Tailwind with shared custom classes from `app/globals.css` (for example `bento-card`, `shimmer`, `neon-dot`); reuse existing classes before adding new global CSS.

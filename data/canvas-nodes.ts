@@ -19,13 +19,13 @@ export const canvasNodes: Node<CanvasNodeData>[] = [
   {
     id: "skills",
     type: "skillsNode",
-    position: { x: -650, y: -200 },
+    position: { x: -650, y: -520 },
     data: { skills: skillCategories },
   },
   {
     id: "experience",
     type: "experienceNode",
-    position: { x: -650, y: 300 },
+    position: { x: -650, y: 60 },
     data: { experiences },
   },
   {
@@ -44,7 +44,8 @@ export const canvasNodes: Node<CanvasNodeData>[] = [
   ...projects.map((project, i) => ({
     id: `project-${project.id}`,
     type: "projectNode",
-    position: { x: 700, y: -300 + i * 200 },
+    // 270px pitch: tallest project card renders ~240px; keep a visible gap.
+    position: { x: 700, y: -600 + i * 270 },
     data: { project },
   })),
 ];

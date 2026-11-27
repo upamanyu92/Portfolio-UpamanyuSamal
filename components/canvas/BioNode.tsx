@@ -4,6 +4,7 @@ import { Handle, Position } from "@xyflow/react";
 import { motion } from "framer-motion";
 import { Download, Mail, FolderOpen } from "lucide-react";
 import type { CanvasNodeData } from "@/data/canvas-nodes";
+import { assetPath } from "@/lib/utils";
 
 const titles = [
   "Strategic Builder",
@@ -88,7 +89,7 @@ export default function BioNode({ data }: { data: CanvasNodeData }) {
           <FolderOpen className="w-3.5 h-3.5" /> Projects
         </a>
         <a
-          href="/assets/resume.pdf"
+          href={assetPath("/assets/resume.pdf")}
           download
           className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 text-sm transition-colors"
         >
