@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Bot, User, Download } from "lucide-react";
 import { chatbotQA } from "@/data/profile";
+import { assetPath } from "@/lib/utils";
 
 interface Message {
   id: number;
@@ -143,7 +144,7 @@ export default function ChatBot() {
                     {msg.text}
                     {msg.type === "bot" && msg.text.includes("download") && (
                       <a
-                        href="/assets/resume.pdf"
+                        href={assetPath("/assets/resume.pdf")}
                         download
                         className="flex items-center gap-1.5 mt-2 text-cyan-400 text-xs font-medium hover:underline"
                       >

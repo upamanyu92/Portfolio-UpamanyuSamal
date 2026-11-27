@@ -1,6 +1,7 @@
 "use client";
 import { profileData, skillCategories, experiences, projects } from "@/data/profile";
 import { Mail, Linkedin, Github, MapPin, Download } from "lucide-react";
+import { assetPath } from "@/lib/utils";
 
 export default function MobileLayout() {
   return (
@@ -19,7 +20,7 @@ export default function MobileLayout() {
         <p className="text-slate-400 text-sm leading-relaxed mb-4">{profileData.summary}</p>
         <div className="flex flex-wrap gap-2">
           <a
-            href="/assets/resume.pdf"
+            href={assetPath("/assets/resume.pdf")}
             download
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 text-sm transition-colors"
           >

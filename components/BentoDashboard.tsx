@@ -21,6 +21,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { profileData, skillCategories, experiences, projects, awards } from "@/data/profile";
 import type { Project } from "@/data/profile";
 import ParticleText from "@/components/ParticleText";
+import { assetPath } from "@/lib/utils";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -233,7 +234,7 @@ function IdentityPanel() {
 
       {/* Resume download */}
       <a
-        href="/assets/resume.pdf"
+        href={assetPath("/assets/resume.pdf")}
         download
         className="flex items-center justify-center gap-2 text-base font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300 border border-cyan-500/30 hover:border-cyan-500/60 rounded-xl py-4 transition-all"
       >
@@ -757,7 +758,7 @@ export default function BentoDashboard() {
           className="shrink-0 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-2 text-sm hidden sm:flex shadow-md shadow-cyan-500/20 hover:shadow-cyan-400/30 transition-shadow px-4 py-2"
           asChild
         >
-          <a href="/assets/resume.pdf" download>
+          <a href={assetPath("/assets/resume.pdf")} download>
             <Download className="w-4 h-4" />
             Resume
           </a>

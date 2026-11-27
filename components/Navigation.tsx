@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { assetPath } from "@/lib/utils";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -113,7 +114,7 @@ export default function Navigation() {
             className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-1.5 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/30 transition-shadow"
             asChild
           >
-            <a href="/assets/resume.pdf" download>
+            <a href={assetPath("/assets/resume.pdf")} download>
               <Download className="w-4 h-4" />
               Resume
             </a>
@@ -157,7 +158,7 @@ export default function Navigation() {
                 );
               })}
               <a
-                href="/assets/resume.pdf"
+                href={assetPath("/assets/resume.pdf")}
                 download
                 className="flex items-center gap-2 mt-2 px-3 py-2 bg-cyan-500 text-slate-950 rounded-md font-semibold text-sm"
               >
